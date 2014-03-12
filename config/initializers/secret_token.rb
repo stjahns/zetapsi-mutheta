@@ -9,4 +9,19 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-ZetapsiMutheta::Application.config.secret_key_base = '44da0b46a0b494dce02b9a61a83f0c44fe5b9ab21cfd83eed7b188bee814dedf4be12e668b063fd8cabd313ae9896f00d09041fdb301b51f805e7964ca04cc7e'
+require 'securerandom'
+
+def secure_token
+  token_file = Rails.root.join('.secret')
+  if File.exist?(token_file)
+    # Use the existing token
+    File.read(token_file).chomp
+  else
+    # Generate a new token and store it in the token_file
+    token = SecureRandom.hex(64)
+    File.write(token_file, token)
+    token
+  end
+end
+
+ZetapsiMutheta::Application.config.secret_key_base = secure_token

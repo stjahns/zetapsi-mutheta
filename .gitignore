@@ -17,3 +17,6 @@
 
 # Ignore uploaded files
 /public/system
+
+# Ignore secret key
+/.secret

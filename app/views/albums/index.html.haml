@@ -1,0 +1,13 @@
+%h1 Albums
+
+= link_to 'New Album', new_album_path
+
+%ul
+  -@albums.each do |album|
+    %li
+      %strong
+        = album.title
+      = link_to 'Show', album
+      = link_to 'Edit', edit_album_path(album)
+      = link_to 'Delete', album_path(album), 
+        method: :delete, data: { confirm: 'Are you sure?' }

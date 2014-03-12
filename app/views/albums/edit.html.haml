@@ -1,0 +1,31 @@
+%h1 Edit Album:
+
+= render 'form'
+
+%h2 Photos:
+
+%ul
+- @album.album_photos.each do |photo|
+  %li
+    = image_tag photo.image.url(:thumb)
+    %strong Caption:
+    = photo.caption
+    = link_to 'Delete', [@album, photo],
+      method: :delete,
+      data: { confirm: "Are you sure?" }
+
+%h3 Add Photo:
+
+= form_for [@album, @album.album_photos.build], :html => { :multipart => true } do |form|
+  %p
+    = form.label :image
+    = form.file_field :image
+
+  %p
+    = form.label :caption
+    = form.text_field :caption
+
+  %p
+    = form.submit "Upload Photo"
+
+= link_to 'Back', albums_path

@@ -1,0 +1,11 @@
+%h1
+  = @album.title
+
+%ul
+- @album.album_photos.each do |photo|
+  %li
+    = image_tag photo.image.url(:thumb)
+    %strong Caption:
+    = photo.caption
+
+= link_to 'Back', albums_path

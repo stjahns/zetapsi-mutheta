@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "StaticPages" do
+describe "HomePages" do
 
   describe "Home page" do
     it "should have the content 'Welcome to the Zeta Psi Fraternity'" do

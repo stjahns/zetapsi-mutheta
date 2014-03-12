@@ -5,11 +5,13 @@ gem 'rails', '4.0.3'
 
 group :development, :test do
   gem 'rspec-rails', '2.13.1'
+  gem 'guard-rspec', '2.5.0'
 end
 
 group :test do
   gem 'selenium-webdriver', '2.35.1'
   gem 'capybara', '2.1.0'
+  gem 'growl', '1.0.3'
 end
 
 # Use postgresql as the database for Active Record

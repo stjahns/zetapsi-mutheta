@@ -49,7 +49,8 @@ class MembersController < ApplicationController
         :profile_photo,
         :position,
         :program,
-        :about)
+        :about
+      )
     end
 
 end

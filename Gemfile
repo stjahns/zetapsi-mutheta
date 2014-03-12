@@ -46,3 +46,6 @@ end
 
 # For file / photo uploads
 gem "paperclip", "~> 4.1"
+
+# HAML for views
+gem "haml-rails"

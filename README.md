@@ -1,2 +1,0 @@
-zetapsi-mutheta
-===============

@@ -5,6 +5,7 @@
 <ul>
   <% @members.each do |member| %>
     <li>
+      <%= image_tag member.profile_photo.url(:thumb) %>
       <%= member.name %>
       <%= link_to 'Show', member %>
       <%= link_to 'Edit', edit_member_path(member) %>

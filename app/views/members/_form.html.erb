@@ -1,4 +1,4 @@
-<%= form_for @member do |f| %>
+<%= form_for @member, :html => { :multipart => true } do |f| %>
 
   <% if @member.errors.any? %>
     <div id="error_explanation">
@@ -15,6 +15,12 @@
   <p>
     <%= f.label :name %><br>
     <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <%= f.label :profile_photo %><br/>
+    <%= image_tag @member.profile_photo.url(:thumb) %></br>
+    <%= f.file_field :profile_photo %>
   </p>
 
   <p>

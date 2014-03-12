@@ -1,0 +1,26 @@
+= image_tag "FratCoverPic.jpg", class: "home-image"
+
+%h1 Welcome to the Zeta Psi Fraternity at the University of Alberta
+
+%p 
+  Zeta Psi has a long and illustrious history at the University of Alberta as a
+  fraternity that seeks to enrich the lives of its members beyond the traditional
+  scope of university education. Zeta Psi has a long-standing commitment to build
+  a brotherhood of men that strive for academic excellence, while seeking to build
+  leadership and moral fiber in service of their communities. We seek to achieve
+  these goals while remembering that university life represents something that
+  should be enjoyed and celebrated.
+
+%p
+  In short, we aim to “…turn out into the world self-respecting,
+  original-thinking, self-controlled, purposeful gentlemen”.
+
+- if (@events.count > 0)
+  %h2 Upcoming Events
+  %ul
+  - @events.each do |event|
+    %li
+      %strong
+        = link_to event.name, event
+      \-
+      = event.time.strftime("%A, %B %-d %Y");

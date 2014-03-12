@@ -9,6 +9,8 @@ div#wrap {
   padding-top: 1px;
 }
 
+// For navigation bar ...
+
 div#navigation-bar {
   background-color: #aaa;
 }
@@ -30,6 +32,11 @@ a.navlink:link, a.navlink:visited {
 
 a.navlink:hover, a.navlink:active {
   color: #FF3;
+}
+
+// For login bar ...
+div#user {
+  float: right;
 }
 
 div#content {

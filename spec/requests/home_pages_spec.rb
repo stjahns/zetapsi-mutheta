@@ -8,9 +8,14 @@ describe "HomePages" do
       expect(page).to have_content('Welcome to the Zeta Psi Fraternity')
     end
 
-    it "should have the right title" do
+    it "should have the base title" do
       visit '/'
-      expect(page).to have_title("Zeta Psi - Mu Theta | Home")
+      expect(page).to have_title("Zeta Psi - Mu Theta")
+    end
+
+    it "should not have custom title" do
+      visit '/'
+      expect(page).not_to have_title("Zeta Psi - Mu Theta | Home")
     end
   end
 

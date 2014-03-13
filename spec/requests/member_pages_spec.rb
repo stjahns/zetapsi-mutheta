@@ -34,6 +34,9 @@ describe "MemberPages" do
       before do
         fill_in "Email", with: "123@xyz.com"
       end
+      it "should display success message" do
+        it { should have_content('Email address already in use') }
+      end
       it "shoud add an invite" do
         expect { click_button "Invite" }.to change(MemberInvite, :count).by(1)
       end
@@ -44,7 +47,7 @@ describe "MemberPages" do
         fill_in "Email", with: "abc@xyz.com"
       end
 
-      it "should display message" do
+      it "should display error message" do
         it { should have_content('Email address already in use') }
       end
 

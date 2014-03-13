@@ -1,34 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title><%= full_title(yield(:title)) %></title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title><%= full_title(yield(:title)) %></title>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif-->
+  </head>
+  <body>
 
-  <div id="wrap">
+    <%= render "shared/header" %>
 
-      <div id="header">
-        <%= render "shared/header" %>
-      </div>
-
-      <div id="navigation-bar">
-        <%= render "shared/navbar" %>
-      </div>
-
+    <div class="container">
+      <%= render "shared/navbar" %>
       <div id="content">
         <%= yield %>
       </div>
-
-      <div id="footer">
-        <%= render "shared/footer" %>
-      </div>
-
     </div>
 
-  </div>
+    <%= render "shared/footer" %>
 
-</body>
+  </body>
 </html>

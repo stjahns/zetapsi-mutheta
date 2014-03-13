@@ -1,8 +1,12 @@
-<ul class="nav">
-  <li><%= link_to "Home", root_path, class: "navlink" %></li>
-  <li><%= link_to "About", "/about", class: "navlink" %></li>
-  <li><%= link_to "Members", members_path, class: "navlink" %></li>
-  <li><%= link_to "Events", events_path, class: "navlink" %></li>
-  <li><%= link_to "Albums", albums_path, class: "navlink" %></li>
-  <li><%= link_to "Contact", "/contact", class: "navlink" %></li>
-</ul>
+<div class="navbar">
+  <div class="navbar-inner">
+    <ul class="nav nav-pills">
+      <li><%= link_to "Home", root_path %></li>
+      <li><%= link_to "About", "/about"  %></li>
+      <li><%= link_to "Members", members_path %></li>
+      <li><%= link_to "Events", events_path %></li>
+      <li><%= link_to "Albums", albums_path %></li>
+      <li><%= link_to "Contact", "/contact" %></li>
+    </ul>
+  </div>
+</div>

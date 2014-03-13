@@ -1,0 +1,26 @@
+@import "bootstrap";
+
+#header {
+  background-color: #000000;
+  margin-bottom: 10px;
+}
+
+#footer {
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  background-color: #777777;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+#content {
+  background-color: #DDD;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}

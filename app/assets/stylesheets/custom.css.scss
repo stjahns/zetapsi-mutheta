@@ -24,3 +24,25 @@
   padding-top: 20px;
   padding-bottom: 20px;
 }
+
+#account {
+  float: right;
+  margin-top: 10px;
+  margin-right: 10px;
+  ul {
+    list-style: none;
+    li {
+      float: left;
+      margin-left: 10px;
+
+      a {
+        color: #888
+      }
+    }
+  }
+}
+
+#header-top {
+  background-image: url(zetapsi-header-gold.png);
+  height: 115px;
+}

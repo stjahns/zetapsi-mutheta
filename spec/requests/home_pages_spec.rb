@@ -9,8 +9,8 @@ describe "HomePages" do
     before { visit root_path }
 
     it { should have_content('Welcome') }
-    it { should have_title("Zeta Psi - Mu Theta") }
-    it { should_not have_title("Zeta Psi - Mu Theta | Home") }
+    it { should have_title(full_title("")) }
+    it { should_not have_title(full_title("Home")) }
 
   end
 
@@ -19,7 +19,7 @@ describe "HomePages" do
     before { visit '/about' }
 
     it { should have_content('The History of Zeta Psi') }
-    it { should have_title("Zeta Psi - Mu Theta | About") }
+    it { should have_title(full_title("About")) }
 
   end
 
@@ -28,7 +28,7 @@ describe "HomePages" do
     before { visit '/contact' }
 
     it { should have_content('please contact us directly') }
-    it { should have_title("Zeta Psi - Mu Theta | Contact") }
+    it { should have_title(full_title("Contact")) }
 
   end
 

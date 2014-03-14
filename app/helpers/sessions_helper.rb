@@ -35,7 +35,28 @@ module SessionsHelper
   # Redirect to login page if not signed in
   #
   def check_logged_in
-    redirect_to login_url, notice: "Please sign in." unless signed_in?
+    unless signed_in?
+      store_location
+      redirect_to login_url, notice: "Please sign in."
+    end
   end
 
+  #
+  # Redirect to login page if not signed in as matching member
+  #
+  def check_correct_user
+    member = Member.find(params[:id])
+    unless current_user?(member)
+      redirect_to(root_url) 
+    end
+  end
+
+  def redirect_back_or(default)
+    redirect_to(session[:return_to] || default)
+    session.delete(:return_to)
+  end
+
+  def store_location
+    session[:return_to] = request.url if request.get?
+  end
 end

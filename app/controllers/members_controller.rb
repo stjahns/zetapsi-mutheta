@@ -1,7 +1,7 @@
 class MembersController < ApplicationController
 
   before_action :check_logged_in,   except: [:show, :index]
-  before_action :correct_user,      except: [:show, :index]
+  before_action :check_correct_user,      except: [:show, :index]
 
   def index
     @members = Member.all
@@ -80,11 +80,6 @@ class MembersController < ApplicationController
         :program,
         :about
       )
-    end
-
-    def correct_user
-      @member = Member.find(params[:id])
-      redirect_to(root_url) unless current_user?(@member)
     end
 
 end

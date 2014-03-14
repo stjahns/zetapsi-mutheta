@@ -115,4 +115,16 @@ describe "MemberPages" do
 
   end
 
+  describe "edit member page" do
+
+    before do 
+      sign_in(@member)
+      visit edit_member_path(@member)
+    end
+
+    it { should have_content("Edit Member") }
+    it { should have_title(full_title("Edit member")) }
+
+  end
+
 end

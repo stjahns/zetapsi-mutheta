@@ -56,6 +56,32 @@ describe "Authentication" do
       let (:album) { FactoryGirl.create(:album) }
       let (:invitation) { FactoryGirl.create(:invitation) }
 
+      describe "when attempting to visit a protected page" do
+        describe "like edit member" do
+          before do
+            visit edit_member_path(member)
+            valid_login(member)
+          end
+          describe "after signing in" do
+            it "should render the desired protected page" do
+              expect(page).to have_title(full_title('Edit member'))
+            end
+          end
+        end
+        describe "like new event" do
+          before do
+            visit new_event_path
+            valid_login(member)
+          end
+          describe "after signing in" do
+            it "should render the desired protected page" do
+              puts page.title
+              expect(page).to have_title(full_title('New event'))
+            end
+          end
+        end
+      end
+
       describe "in the Events controller" do
         describe "visit edit page" do
           before { visit edit_event_path(event) }

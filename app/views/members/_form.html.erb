@@ -18,6 +18,23 @@
   </p>
 
   <p>
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </p>
+
+  <% if @edit_password %>
+    <p>
+      <%= f.label :password %><br>
+      <%= f.password_field :password %>
+    </p>
+
+    <p>
+      <%= f.label :password_confirmation %><br>
+      <%= f.password_field :password_confirmation %>
+    </p>
+  <% end %>
+
+  <p>
     <%= f.label :profile_photo %><br/>
     <%= image_tag @member.profile_photo.url(:thumb) %></br>
     <%= f.file_field :profile_photo %>

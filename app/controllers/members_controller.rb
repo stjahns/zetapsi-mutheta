@@ -14,12 +14,15 @@ class MembersController < ApplicationController
       @member = Member.new
       @member.name = invitation.name
       @member.email = invitation.email
+      @edit_password = true
     end
   end
 
   def create
-    @member = Member.new(member_params)
+    @member = Member.new(new_member_params)
     if @member.save
+      # destroy the corresponding invitation
+      Invitation.destroy_all("email = '#{@member.email}'")
       redirect_to @member
     else
       render 'new'
@@ -37,7 +40,7 @@ class MembersController < ApplicationController
   def update
     @member = Member.find(params[:id])
 
-    if @member.update(member_params)
+    if @member.update(edit_member_params)
       redirect_to @member
     else
       render 'edit'
@@ -52,9 +55,23 @@ class MembersController < ApplicationController
 
   private
 
-    def member_params
+    def new_member_params
       params.require(:member).permit(
         :name,
+        :email,
+        :password,
+        :password_confirmation,
+        :profile_photo,
+        :position,
+        :program,
+        :about
+      )
+    end
+
+    def edit_member_params
+      params.require(:member).permit(
+        :name,
+        :email,
         :profile_photo,
         :position,
         :program,

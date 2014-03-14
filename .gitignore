@@ -20,6 +20,3 @@
 
 # Ignore secret key
 /.secret
-
-# Ignore gmail config
-/.gmail

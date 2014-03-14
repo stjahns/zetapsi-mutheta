@@ -1,5 +1,8 @@
 class MembersController < ApplicationController
 
+  before_action :logged_in_member,  only: [:edit, :update]
+  before_action :correct_user,      only: [:edit, :update]
+
   def index
     @members = Member.all
     @invitations = Invitation.all
@@ -77,6 +80,15 @@ class MembersController < ApplicationController
         :program,
         :about
       )
+    end
+
+    def logged_in_member
+      redirect_to login_url, notice: "Please sign in." unless signed_in?
+    end
+
+    def correct_user
+      @member = Member.find(params[:id])
+      redirect_to(root_url) unless current_user?(@member)
     end
 
 end

@@ -47,4 +47,49 @@ describe "Authentication" do
       end
     end
   end
+
+  describe "authorization" do
+
+    describe "for non-signed-in users" do
+      let (:member) { FactoryGirl.create(:member) }
+
+      describe "in the Invitations controller" do
+          before { post invitations_path }
+          specify { expect(response).to redirect_to(login_path) }
+      end
+
+      describe "in the Members controller" do
+
+        describe "visiting the edit page" do 
+          before { visit edit_member_path(member) }
+          it { should have_title('Log in') }
+        end
+
+        describe "submitting to the update action" do
+          before { patch member_path(member) }
+          specify { expect(response).to redirect_to(login_path) }
+        end
+
+      end
+    end
+
+    describe "as wrong user" do
+      let (:member) { FactoryGirl.create(:member) }
+      let (:wrong_member) { FactoryGirl.create(:member, email: "wrong@example.com") }
+
+      before { sign_in member, no_capybara: true }
+
+      describe "submitting a GET request to the Members#edit action" do
+        before { get edit_member_path(wrong_member) }
+        specify { expect(response.body).not_to match(full_title('Edit Member')) }
+        specify { expect(response).to redirect_to(root_url) }
+      end
+
+      describe "submitting a Patch request to the Members#update action" do
+        before { patch member_path(wrong_member) }
+        specify { expect(response).to redirect_to(root_url) }
+      end
+
+    end
+  end
 end

@@ -1,5 +1,7 @@
 class InvitationsController < ApplicationController
 
+  before_action :check_logged_in
+
   def create
     @invitation = Invitation.new(invite_params)
     @invitation.email_token = SecureRandom.hex(32)
@@ -26,6 +28,10 @@ class InvitationsController < ApplicationController
         :name,
         :email
       )
+    end
+
+    def check_logged_in
+      redirect_to login_url, notice: "Please sign in." unless signed_in?
     end
 
 end

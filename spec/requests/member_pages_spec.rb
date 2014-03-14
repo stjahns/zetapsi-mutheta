@@ -5,6 +5,7 @@ describe "MemberPages" do
   before do 
     @member = Member.create(name: "Joe Schmoe", email: "abc@xyz.com",
                         password: "foobar", password_confirmation: "foobar")
+    ActionMailer::Base.deliveries = []
   end
 
   subject { page }
@@ -30,37 +31,60 @@ describe "MemberPages" do
 
     it { should have_content('Invite') }
 
-    describe "sending valid invitation" do
+    describe "with valid name and email" do
       before do
+        fill_in "Name", with: "Joe Schmoe"
         fill_in "Email", with: "123@xyz.com"
       end
-      it "should display success message" do
-        it { should have_content('Email address already in use') }
+
+      it "shoud add an invite when click invite" do
+        expect { click_button "Invite" }.to change(Invitation, :count).by(1)
       end
-      it "shoud add an invite" do
-        expect { click_button "Invite" }.to change(MemberInvite, :count).by(1)
+
+      describe "when click invite" do
+        before { click_button "Invite" }
+        it "should send email" do
+          ActionMailer::Base.deliveries.last.should_not be_nil
+          ActionMailer::Base.deliveries.last.to.should == ["123@xyz.com"]
+        end
       end
     end
 
-    describe "sending invite for existing member" do
+    describe "with existing email" do
       before do
+        fill_in "Name", with: "Joe Schmoe"
         fill_in "Email", with: "abc@xyz.com"
       end
 
-      it "should display error message" do
-        it { should have_content('Email address already in use') }
+      it "shoudn't add an invite when click invite" do
+        expect { click_button "Invite" }.not_to change(Invitation, :count)
       end
 
-      it "shoudn't add an invite" do
-        expect { click_button "Invite" }.not_to change(MemberInvite, :count)
+      describe "when click invite" do
+        before { click_button "Invite" }
+        it "should not send email" do
+          ActionMailer::Base.deliveries.last.should be_nil
+        end
+      end
+    end
+
+
+    describe "with no name, email" do
+      it "shoudn't add an invite when click invite" do
+        expect { click_button "Invite" }.not_to change(Invitation, :count)
+      end
+
+      describe "when click invite" do
+        before { click_button "Invite" }
+        it "should not send email" do
+          ActionMailer::Base.deliveries.last.should be_nil
+        end
       end
     end
 
     it "clicking delete should delete user" do
       expect { click_link "Delete" }.to change(Member, :count).by(-1)
     end
-
-    # TODO test that this doesn't work if not logged in / account doesn't have permissions
 
   end
 

@@ -1,6 +1,6 @@
-<h1>Members</h1>
+<% provide(:title, 'Members') %>
 
-<%= link_to 'New Member...', new_member_path %>
+<h1>Members</h1>
 
 <ul>
   <% @members.each do |member| %>
@@ -14,3 +14,37 @@
     </li>
   <% end %>
 </ul>
+
+<h3>Invite New Members</h3>
+<%= form_for @invitation do |form| %>
+  <p>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+  </p>
+  <p>
+    <%= form.label :email %><br>
+    <%= form.text_field :email %>
+  </p>
+  <p>
+    <%= form.submit "Invite"%>
+  </p>
+<% end %>
+
+<h4>Pending Invitations</h4>
+
+<% if @invitations.count == 0 %>
+  <p>
+    <em>No pending invitations</em>
+  </p>
+<% end %>
+
+<% @invitations.each do |invite| %>
+  <p>
+    <strong><%= invite.name %></strong>
+    <%= invite.email %>
+    <%= link_to 'Cancel', invitation_path(invite),
+                method: :delete, data: { confirm: 'Are you sure?' } %>
+  </p>
+
+<% end %>
+

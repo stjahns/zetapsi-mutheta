@@ -2,7 +2,8 @@ ZetapsiMutheta::Application.routes.draw do
 
   root "home#index"
 
-  resources :members
+  resources :members, except: [:new]
+  resources :invitations, only: [:create, :destroy]
   resources :events
 
   resources :albums do
@@ -11,5 +12,8 @@ ZetapsiMutheta::Application.routes.draw do
 
   # for static pages (home, about, contact)
   match ":action", :controller => "home", via: :get
+
+
+  get 'members/:id/confirm' => 'members#new'
 
 end

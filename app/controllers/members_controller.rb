@@ -2,10 +2,19 @@ class MembersController < ApplicationController
 
   def index
     @members = Member.all
+    @invitations = Invitation.all
+    @invitation = Invitation.new
   end
 
   def new
-    @member = Member.new
+    invitation = Invitation.where("email_token = ?", params[:id]).first
+    if invitation.nil?
+      redirect_to root_path
+    else
+      @member = Member.new
+      @member.name = invitation.name
+      @member.email = invitation.email
+    end
   end
 
   def create

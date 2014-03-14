@@ -75,7 +75,6 @@ describe "Authentication" do
           end
           describe "after signing in" do
             it "should render the desired protected page" do
-              puts page.title
               expect(page).to have_title(full_title('New event'))
             end
           end

@@ -1,5 +1,6 @@
 ZetapsiMutheta::Application.routes.draw do
 
+  mount Mercury::Engine => '/'
   root "home#index"
 
   resources :sessions, only: [:new, :create, :destroy]

@@ -13,4 +13,8 @@ FactoryGirl.define do
     time        1.week.from_now
   end
 
+  factory :album do
+    title        "Tea Party"
+  end
+
 end

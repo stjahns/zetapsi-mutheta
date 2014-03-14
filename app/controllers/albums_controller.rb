@@ -1,5 +1,7 @@
 class AlbumsController < ApplicationController
 
+  before_action :check_logged_in,  except: [:index, :show]
+
   def index
     @albums = Album.all
   end

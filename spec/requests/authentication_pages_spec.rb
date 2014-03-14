@@ -52,10 +52,57 @@ describe "Authentication" do
 
     describe "for non-signed-in users" do
       let (:member) { FactoryGirl.create(:member) }
+      let (:event) { FactoryGirl.create(:event) }
+      let (:album) { FactoryGirl.create(:album) }
+      let (:invitation) { FactoryGirl.create(:invitation) }
+
+      describe "in the Events controller" do
+        describe "visit edit page" do
+          before { visit edit_event_path(event) }
+          it { should have_title('Log in') }
+        end
+        describe "submit to create action" do
+          before { post events_path }
+          specify { expect(response).to redirect_to(login_path) }
+        end
+        describe "submit to update action" do
+          before { patch event_path(event) }
+          specify { expect(response).to redirect_to(login_path) }
+        end
+        describe "submit to destroy action" do
+          before { delete event_path(event) }
+          specify { expect(response).to redirect_to(login_path) }
+        end
+      end
+
+      describe "in the Albums controller" do
+        describe "visit edit page" do
+          before { visit edit_album_path(album) }
+          it { should have_title('Log in') }
+        end
+        describe "submit to create action" do
+          before { post albums_path }
+          specify { expect(response).to redirect_to(login_path) }
+        end
+        describe "submit to update action" do
+          before { patch album_path(album) }
+          specify { expect(response).to redirect_to(login_path) }
+        end
+        describe "submit to destroy action" do
+          before { delete album_path(album) }
+          specify { expect(response).to redirect_to(login_path) }
+        end
+      end
 
       describe "in the Invitations controller" do
+        describe "submit to create action" do
           before { post invitations_path }
           specify { expect(response).to redirect_to(login_path) }
+        end
+        describe "submit to destroy action" do
+          before { delete invitation_path(invitation) }
+          specify { expect(response).to redirect_to(login_path) }
+        end
       end
 
       describe "in the Members controller" do
@@ -65,8 +112,19 @@ describe "Authentication" do
           it { should have_title('Log in') }
         end
 
+        describe "submit to create action" do
+          before { post members_path }
+          specify { expect(response).to redirect_to(login_path) }
+        end
+
         describe "submitting to the update action" do
           before { patch member_path(member) }
+          specify { expect(response).to redirect_to(login_path) }
+        end
+
+
+        describe "submit to destroy action" do
+          before { delete member_path(member) }
           specify { expect(response).to redirect_to(login_path) }
         end
 

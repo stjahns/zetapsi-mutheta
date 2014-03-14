@@ -31,4 +31,11 @@ module SessionsHelper
     user == current_user
   end
 
+  #
+  # Redirect to login page if not signed in
+  #
+  def check_logged_in
+    redirect_to login_url, notice: "Please sign in." unless signed_in?
+  end
+
 end

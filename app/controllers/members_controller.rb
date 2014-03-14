@@ -1,7 +1,7 @@
 class MembersController < ApplicationController
 
-  before_action :logged_in_member,  only: [:edit, :update]
-  before_action :correct_user,      only: [:edit, :update]
+  before_action :check_logged_in,   except: [:show, :index]
+  before_action :correct_user,      except: [:show, :index]
 
   def index
     @members = Member.all
@@ -80,10 +80,6 @@ class MembersController < ApplicationController
         :program,
         :about
       )
-    end
-
-    def logged_in_member
-      redirect_to login_url, notice: "Please sign in." unless signed_in?
     end
 
     def correct_user

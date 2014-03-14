@@ -30,8 +30,4 @@ class InvitationsController < ApplicationController
       )
     end
 
-    def check_logged_in
-      redirect_to login_url, notice: "Please sign in." unless signed_in?
-    end
-
 end

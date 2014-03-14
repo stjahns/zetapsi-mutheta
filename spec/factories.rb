@@ -7,6 +7,11 @@ FactoryGirl.define do
     password_confirmation "foobar"
   end
 
+  factory :invitation do
+    name      "John Doe"
+    email     "johndoe@example.com"
+  end
+
   factory :event do
     name        "Tea Party"
     description "Drinking Tea"

@@ -1,0 +1,13 @@
+#header
+  .container
+    #header-top
+      #account
+        %ul
+          - if signed_in?
+            %li
+              = link_to current_user.email, member_path(current_user)
+            %li
+              = link_to "Log out", logout_path, method: "delete"
+          - else
+            %li
+              = link_to "Log in", login_path

@@ -20,6 +20,8 @@ describe "MemberPages" do
     it { should_not have_content('Pending Invitations') }
     it { should_not have_content('Invite') }
 
+    # TODO test that edit, delete, and invite are inaccessible / disabled otherwise
+
   end
 
   #

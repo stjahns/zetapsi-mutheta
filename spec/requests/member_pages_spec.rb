@@ -3,29 +3,54 @@ require 'spec_helper'
 describe "MemberPages" do
 
   before do 
-    @member = Member.create(name: "Joe Schmoe", email: "abc@xyz.com",
-                        password: "foobar", password_confirmation: "foobar")
+    @member = FactoryGirl.create(:member)
     ActionMailer::Base.deliveries = []
   end
 
   subject { page }
-
-  describe "members index" do
-
+  
+  #
+  # Test member pages when not logged in
+  #
+  describe "members index while not logged in" do
     before { visit members_path }
 
+    it { should_not have_content('Edit') }
+    it { should_not have_content('Delete') }
+    it { should_not have_content('Pending Invitations') }
+    it { should_not have_content('Invite') }
+
+  end
+
+  #
+  # Test member pages for logged in members
+  #
+  describe "members index while logged in" do
+
+    before do
+      visit login_path
+      fill_in "Email",    with: @member.email.upcase
+      fill_in "Password", with: @member.password
+      click_button "Log in"
+      visit members_path
+    end
+
     it { should have_content('Members') }
-    it { should have_content('Joe Schmoe') }
+    it { should have_content(@member.name) }
     it { should have_title(full_title('Members')) }
 
-    # TODO only if logged in (as administrator?)
+    # TODO only if administrator?
 
     it { should have_content('Invite') }
 
     describe "with valid name and email" do
+
+      let(:newname) { "newmember" }
+      let(:newemail) { "newmember@abc.com" }
+
       before do
-        fill_in "Name", with: "Joe Schmoe"
-        fill_in "Email", with: "123@xyz.com"
+        fill_in "Name", with: newname
+        fill_in "Email", with: newemail
       end
 
       it "shoud add an invite when click invite" do
@@ -36,15 +61,15 @@ describe "MemberPages" do
         before { click_button "Invite" }
         it "should send email" do
           ActionMailer::Base.deliveries.last.should_not be_nil
-          ActionMailer::Base.deliveries.last.to.should == ["123@xyz.com"]
+          ActionMailer::Base.deliveries.last.to.should == [newemail]
         end
       end
     end
 
     describe "with existing email" do
       before do
-        fill_in "Name", with: "Joe Schmoe"
-        fill_in "Email", with: "abc@xyz.com"
+        fill_in "Name", with: @member.name
+        fill_in "Email", with: @member.email
       end
 
       it "shoudn't add an invite when click invite" do
@@ -83,8 +108,8 @@ describe "MemberPages" do
 
     before { visit member_path(@member) }
 
-    it { should have_content('Name: Joe Schmoe') }
-    it { should have_title(full_title('Joe Schmoe')) }
+    it { should have_content("Name: #{@member.name}") }
+    it { should have_title(full_title(@member.name)) }
 
   end
 

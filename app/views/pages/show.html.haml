@@ -1,0 +1,12 @@
+- provide(:title, @page.name)
+.row
+  .span
+    %div{:id => "page_content", "data-mercury" => "full"}
+      = raw @page.content
+
+- if signed_in?
+  .row
+    .span
+    %p
+      = link_to "Edit Page", "/editor" + request.path, id: "edit_link",
+          data: { save_url: mercury_update_page_path(@page) }

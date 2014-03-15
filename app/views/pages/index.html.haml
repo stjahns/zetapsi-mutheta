@@ -1,0 +1,17 @@
+- provide(:title, "Pages")
+%h1 Pages
+%ul
+- @pages.each do |page|
+  %li
+    = link_to page.name, page_path(page)
+    = link_to 'Delete', page_path(page), 
+      method: :delete, data: { confirm: 'Are you sure?' }
+
+- if signed_in?
+  %h4 Create New Page
+  = form_for @page do |f|
+    %p
+      = f.label :name
+      = f.text_field :name
+    %p
+      = f.submit "Create Page"

@@ -1,12 +1,19 @@
 ZetapsiMutheta::Application.routes.draw do
 
   mount Mercury::Engine => '/'
+
   root "home#index"
 
   resources :sessions, only: [:new, :create, :destroy]
   resources :members, except: [:new]
   resources :invitations, only: [:create, :destroy]
   resources :events
+
+  resources :pages, except: [:new] do
+    member { put :mercury_update }
+  end
+
+  put '/content/:name', to: 'home#mercury_update', as: 'update_content'
 
   resources :albums do
     resources :album_photos

@@ -1,4 +1,4 @@
-= image_tag "FratCoverPic.jpg", class: "home-image"
+- provide(:title, 'About')
 
 %span{:id => "editable", "data-mercury" => "full"}
   = raw @content.content
@@ -8,12 +8,3 @@
     %p
       = link_to "Edit Content", "/editor" + request.path, id: "edit_link",
           data: { save_url: update_content_path(@content.name) }
-- if (@events.count > 0)
-  %h2 Upcoming Events
-  %ul
-  - @events.each do |event|
-    %li
-      %strong
-        = link_to event.name, event
-      \-
-      = event.time.strftime("%A, %B %-d %Y");

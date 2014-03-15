@@ -1,5 +1,26 @@
-<% provide(:title, 'About') %>
-
+namespace :db do
+  desc "Fill db with initial content for editable content"
+  task :populate_content => :environment do
+    #clear existing content
+    EditableContent.destroy_all
+    EditableContent.create!(:name => "home",
+                            :content => <<-end_content
+<h2>Welcome to the Zeta Psi Fraternity at the University of Alberta</h2>
+<p>
+	Zeta Psi has a long and illustrious history at the University of Alberta as a fraternity
+that seeks to enrich the lives of its members beyond the traditional scope of university
+education. Zeta Psi has a long-standing commitment to build a brotherhood of men that
+strive for academic excellence, while seeking to build leadership and moral fiber in
+service of their communities. We seek to achieve these goals while remembering that
+university life represents something that should be enjoyed and celebrated.
+<br/><br/>
+	In short, we aim to “…turn out into the world self-respecting, original-thinking, self-
+controlled, purposeful gentlemen”.
+</p>
+end_content
+)
+    EditableContent.create!(:name => "about",
+                            :content => <<-end_content
 <h1>The History of Zeta Psi and of the Mu Theta Chapter</h1>
 
 <p>
@@ -50,6 +71,39 @@ There have been many famous and successful Zetes:
 	Throughout its history, Zeta Psi has striven to promote excellence in its members,
 through all facets of University life and beyond. Though being a member Zeta Psi is
 significant phase in ones undergraduate life, it represents much more than that. For more
-information, please <%=link_to "Contact Us", "/contactus" %>.
+information, please <a href="/contact">contact us</a>.
+</p>
+end_content
+)
+    EditableContent.create!(:name => "contact",
+                            :content => <<-end_content
+<h1>Contact Us</h1>
+
+<p>For general inquiries, please email us at 
+  <%= mail_to "zetapsi.mutheta@gmail.com"%>.
 </p>
 
+<p>For more specific inquiries, please contact us directly:
+</p>
+
+<h2>President - Max Anderson</h2>
+<p>
+Phone - (780) 123-4567 <br>
+Email - <%= mail_to "max@gmail.com" %>
+</p>
+
+<h2>Social Chair - Dempsey Bolton</h2>
+<p>
+Phone - (780) 123-4567 <br>
+Email - <%= mail_to "max@gmail.com" %>
+</p>
+
+<h2>Web Developer - Steve Jahns</h2>
+<p>
+Phone - (780) 123-4567 <br>
+Email - <%= mail_to "max@gmail.com" %>
+</p>
+end_content
+)
+  end
+end

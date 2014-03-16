@@ -1,16 +1,15 @@
 class PagesController < ApplicationController
 
+  before_action :check_logged_in,  except: [:index, :show]
+
   def show
-    if params[:name]
-      @page = Page.find_by_name(params[:name])
-      redirect_to pages_path if @page.nil?
-    else
-      @page = Page.find(params[:id])
-    end
+    @page = Page.find_by_name(params[:name])
+    redirect_to pages_path if @page.nil?
   end
 
   def create
     @page = Page.new(page_params)
+    @page.name = @page.name.downcase
     if @page.save
       redirect_to @page
     else
@@ -24,7 +23,7 @@ class PagesController < ApplicationController
   end
 
   def mercury_update
-    page = Page.find(params[:id])
+    page = Page.find_by_name(params[:name])
     page.content = params[:content][:page_content][:value]
     unless page.save
       flash.now[:error] = "Failed to save!"
@@ -33,7 +32,7 @@ class PagesController < ApplicationController
   end
 
   def destroy
-    @page = Page.find(params[:id])
+    @page = Page.find_by_name(params[:name])
     @page.destroy
     redirect_to pages_path
   end

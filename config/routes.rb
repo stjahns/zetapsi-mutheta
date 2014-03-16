@@ -9,7 +9,7 @@ ZetapsiMutheta::Application.routes.draw do
   resources :invitations, only: [:create, :destroy]
   resources :events
 
-  resources :pages, except: [:new] do
+  resources :pages, param: :name, except: [:new] do
     member { put :mercury_update }
   end
 

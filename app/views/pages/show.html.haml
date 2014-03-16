@@ -9,4 +9,4 @@
     .span
     %p
       = link_to "Edit Page", "/editor" + request.path, id: "edit_link",
-          data: { save_url: mercury_update_page_path(@page) }
+          data: { save_url: mercury_update_page_path(@page.name) }

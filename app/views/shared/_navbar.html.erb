@@ -7,6 +7,9 @@
       <li><%= link_to "Events", events_path %></li>
       <li><%= link_to "Albums", albums_path %></li>
       <li><%= link_to "Contact", "/contact" %></li>
+      <% if signed_in? %>
+        <li><%= link_to "Pages", "/pages" %></li>
+      <% end %>
     </ul>
   </div>
 </div>

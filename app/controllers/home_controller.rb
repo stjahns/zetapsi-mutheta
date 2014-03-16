@@ -1,6 +1,8 @@
 class HomeController < ApplicationController
-  def index
 
+  before_action :check_logged_in,  only: [:mercury_update]
+
+  def index
     @content = content_for("home")
 
     # Get upcoming events
@@ -16,6 +18,7 @@ class HomeController < ApplicationController
   end
 
   def mercury_update
+    mercury_update_footer
     @content = EditableContent.find_by name: params[:name]
     @content.content = params[:content][:editable][:value]
     unless @content.save
@@ -24,16 +27,4 @@ class HomeController < ApplicationController
     render text: ""
   end
 
-  private
-    def content_for(content_name)
-      content = EditableContent.find_by name: content_name
-
-      if content.nil?
-        content = EditableContent.new
-        content.name = content_name
-        content.save
-      end
-
-      return content
-    end
 end

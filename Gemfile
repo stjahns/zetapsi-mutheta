@@ -55,3 +55,6 @@ gem 'rails_12factor', group: :production
 # Mercury editor
 gem 'mercury-rails', git: 'https://github.com/jejacks0n/mercury.git'
 gem 'jquery-migrate-rails'
+
+# For S3 file hosting
+gem 'aws-sdk'

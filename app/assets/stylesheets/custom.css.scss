@@ -62,6 +62,20 @@
   margin-bottom: 0px;
 }
 
+/* frontpage slideshow */
+
+.carousel-inner > .item > img {
+  margin: 0 auto;
+}
+
+.carousel-control.left {
+  background-image: none;
+}
+
+.carousel-control.right {
+  background-image: none;
+}
+
 /* For members page */
 
 .thumbnail.member_thumb {

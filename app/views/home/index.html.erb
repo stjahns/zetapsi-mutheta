@@ -1,0 +1,50 @@
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <% @cover_album.album_photos.each_with_index do |photo, index| %>
+      <li data-target="#carousel-example-generic" data-slide-to="<%= index %>"
+        <% if index == 0 %> class="active" <% end %>>
+      </li>
+    <% end %>
+  </ol>
+
+  <div class="carousel-inner">
+    <% @cover_album.album_photos.each_with_index do |photo, index| %>
+      <div class="item <%= "active" if index == 0 %>">
+        <%= image_tag photo.image.url(:frontpage) %>
+        <div class="carousel-caption">
+          <p><%= photo.caption %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+  </a>
+</div>
+
+<div id="editable" data-mercury="full">
+  <%= raw @content.content %>
+</div>
+<% if signed_in? %>
+  <p>
+    <%= link_to "Edit Content", "/editor" + request.path, id: "edit_link",
+      data: { save_url: update_content_path(@content.name) } %>
+    </p>
+<% end %>
+<% if @events.count > 0 %>
+  <h2>Upcoming Events</h2>
+  <ul>
+    <% @events.each do |event| %>
+      <li>
+        <strong>
+          <%= link_to event.name, event %>
+        </strong>
+        <%= event.time.strftime("%A, %B %-d %Y") %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

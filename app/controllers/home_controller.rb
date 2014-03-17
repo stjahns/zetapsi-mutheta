@@ -5,6 +5,8 @@ class HomeController < ApplicationController
   def index
     @content = content_for("home")
 
+    @cover_album = Album.first
+
     # Get upcoming events
     @events = Event.where('time >= ?', DateTime.now).order(:time)
   end

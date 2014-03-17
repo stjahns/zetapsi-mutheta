@@ -1,14 +1,20 @@
+- provide(:title, 'Members')
+
 %h1 Albums
 
 = link_to 'New Album', new_album_path if signed_in?
 
-%ul
+.row.albums-list
   -@albums.each do |album|
-    %li
-      %strong
-        = album.title
-      = link_to 'Show', album
-      -if signed_in?
-        = link_to 'Edit', edit_album_path(album)
-        = link_to 'Delete', album_path(album), 
-          method: :delete, data: { confirm: 'Are you sure?' }
+    .col-xs-6.col-sm-4.col-md-3.col-lg-2
+      = link_to album, title: album.title do
+        .thumbnail.album_thumb
+          = image_tag album.cover_image
+          .caption
+            %h4
+              = album.title
+            - if signed_in?
+              %p
+                = link_to 'Edit', edit_album_path(album)
+                = link_to 'Delete', album_path(album), 
+                  method: :delete, data: { confirm: 'Are you sure?' }

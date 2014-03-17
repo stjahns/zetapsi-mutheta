@@ -4,8 +4,8 @@ class AlbumPhoto < ActiveRecord::Base
     :styles=> {
       :frontpage => "1000x600#",
       :medium => "300x300>",
-      :thumb => "100x100" },
-    :default_url => "/assets/default_profilpic.gif"
+      :thumb => "200x250#" },
+    :default_url => "/assets/default_profilpic_200x250.gif"
   validates_attachment_content_type :image, :content_type => /image/
   validates :image, presence: true
 end

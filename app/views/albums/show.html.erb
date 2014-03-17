@@ -1,0 +1,35 @@
+<h1><%= @album.title %></h1>
+
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+
+  <!-- TODO want to show album icons in a strip below the carousel -->
+  <ol class="carousel-indicators">
+    <% @album.album_photos.each_with_index do |photo, index| %>
+      <li data-target="#carousel-example-generic" data-slide-to="<%= index %>"
+        <% if index == 0 %> class="active" <% end %>>
+      </li>
+    <% end %>
+  </ol>
+
+  <div class="carousel-inner">
+    <% @album.album_photos.each_with_index do |photo, index| %>
+      <div class="item <%= "active" if index == 0 %>">
+        <%= image_tag photo.image.url(:frontpage) %>
+        <div class="carousel-caption">
+          <p><%= photo.caption %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+  </a>
+
+</div>
+
+
+<%= link_to 'Back', albums_path %>

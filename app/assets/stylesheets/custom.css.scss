@@ -106,6 +106,20 @@
 
 }
 
+/* For albums page */
+
+.thumbnail.album_thumb {
+  position: relative;
+  max-width: 200px;
+}
+
+.thumbnail.album_thumb > .caption {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.7);
+  bottom: 4px;
+  left: 4px;
+  right: 4px;
+}
 
 .debug_dump
 {

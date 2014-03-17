@@ -1,7 +1,7 @@
 class MembersController < ApplicationController
 
-  before_action :check_logged_in,   except: [:show, :index]
-  before_action :check_correct_user,      except: [:show, :index]
+  before_action :check_logged_in,   except: [:show, :index, :new, :create]
+  before_action :check_correct_user,      except: [:show, :index, :new, :create]
 
   def index
     @members = Member.all
@@ -10,22 +10,24 @@ class MembersController < ApplicationController
   end
 
   def new
-    invitation = Invitation.where("email_token = ?", params[:id]).first
-    if invitation.nil?
+    @invitation = Invitation.where("email_token = ?", params[:id]).first
+    if @invitation.nil?
       redirect_to root_path
     else
       @member = Member.new
-      @member.name = invitation.name
-      @member.email = invitation.email
+      @member.name = @invitation.name
+      @member.email = @invitation.email
       @edit_password = true
     end
   end
 
   def create
+    invitation = Invitation.find_by_email_token params[:member][:token]
+    redirect_to root_path if invitation.nil?
+
     @member = Member.new(new_member_params)
     if @member.save
-      # destroy the corresponding invitation
-      Invitation.destroy_all("email = '#{@member.email}'")
+      invitation.destroy
       redirect_to @member
     else
       render 'new'
@@ -42,8 +44,7 @@ class MembersController < ApplicationController
 
   def update
     @member = Member.find(params[:id])
-
-    if @member.update(edit_member_params)
+    if @member.update_attributes(edit_member_params)
       redirect_to @member
     else
       render 'edit'

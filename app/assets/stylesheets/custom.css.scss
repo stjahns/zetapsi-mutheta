@@ -54,15 +54,39 @@
 
 #header-top {
   background-image: url(image-path("zetapsi-header-gold.png"));
+  background-repeat: no-repeat;
   height: 115px;
 }
 
-/* miscellaneous */
+.navbar {
+  margin-bottom: 0px;
+}
+
+/* For members page */
+
+.thumbnail.member_thumb {
+  position: relative;
+}
+
+.thumbnail.member_thumb > .caption {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.7);
+  bottom: 4px;
+  left: 4px;
+  right: 4px;
+}
+
+.members-list {
+  margin-top: 25px;
+}
+
+.form-wrapper {
+  width: auto;
+}
 
 .debug_dump
 {
   margin-left: auto;
   margin-right: auto;
-  width: 940px;
   @include box_sizing;
 }

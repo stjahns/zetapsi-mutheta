@@ -20,3 +20,5 @@
 
 # Ignore secret key
 /.secret
+
+*.DS_Store

@@ -1,27 +1,36 @@
 <% provide(:title, @member.name) %>
 
-<p>
-  <%= image_tag @member.profile_photo.url(:medium) %>
-</p>
+<div class="thumbnail member_photo">
+  <%= image_tag @member.profile_photo.url(:medium)%>
+</div>
 
-<p>
-  <strong>Name:</strong>
+<h3>
   <%= @member.name %>
-</p>
+</h3>
 
-<p>
+<% unless @member.position.blank? %>
+  <p>
   <strong>Position:</strong>
   <%= @member.position %>
-</p>
+  </p>
+<% end %>
 
-<p>
+<% unless @member.program.blank? %>
+  <p>
   <strong>Program:</strong>
   <%= @member.program %>
-</p>
+  </p>
+<% end %>
 
-<p>
+<% unless @member.about.blank? %>
+  <p>
   <strong>About:</strong>
   <%= @member.about %>
-</p>
+  </p>
+<% end %>
 
-<%= link_to 'Back', members_path %>
+<div style="clear: both"></div>
+
+<p>
+  <%= link_to 'Back', members_path %>
+</p>

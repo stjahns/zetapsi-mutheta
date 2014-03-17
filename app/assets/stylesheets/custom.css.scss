@@ -66,6 +66,7 @@
 
 .thumbnail.member_thumb {
   position: relative;
+  max-width: 200px;
 }
 
 .thumbnail.member_thumb > .caption {
@@ -83,6 +84,14 @@
 .form-wrapper {
   width: auto;
 }
+
+.member_photo {
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 20px;
+
+}
+
 
 .debug_dump
 {

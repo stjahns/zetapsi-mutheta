@@ -4,7 +4,7 @@
 
 %h2 Photos:
 
-- @album.album_photos.each do |photo|
+- @album.album_photos.each_with_index do |photo, index|
   .row
     .col-xs-4.col-md-2
       = image_tag photo.image.url(:thumb), class: "edit-album-thumb"
@@ -15,6 +15,16 @@
           = form.text_field :caption
         %p
           = form.submit "Update Caption"
+      - unless index == 0
+        %p
+          = form_for [@album, photo] do |form|
+            = form.hidden_field :move, :value => "up"
+            = form.submit "Move Up"
+      - unless index == @album.album_photos.count - 1
+        %p
+          = form_for [@album, photo] do |form|
+            = form.hidden_field :move, :value => "down"
+            = form.submit "Move Down"
       %p
         = link_to 'Delete', [@album, photo],
           method: :delete,

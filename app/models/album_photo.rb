@@ -1,5 +1,8 @@
 class AlbumPhoto < ActiveRecord::Base
   belongs_to :album
+
+  default_scope { order(:album_order) }
+
   has_attached_file :image,
     :styles=> {
       :frontpage => "1000x600#",
@@ -10,4 +13,5 @@ class AlbumPhoto < ActiveRecord::Base
     :default_url => "/assets/default_profilpic_200x250.gif"
   validates_attachment_content_type :image, :content_type => /image/
   validates :image, presence: true
+
 end

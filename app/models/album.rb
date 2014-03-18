@@ -19,7 +19,7 @@ class Album < ActiveRecord::Base
   def move_down(photo)
 
     if photo.album_order.nil?
-      album.set_album_orders
+      set_album_orders
     end
 
     swap_order(photo.album_order, photo.album_order + 1)
@@ -28,7 +28,7 @@ class Album < ActiveRecord::Base
   def move_up(photo)
 
     if photo.album_order.nil?
-      album.set_album_orders
+      set_album_orders
     end
 
     swap_order(photo.album_order, photo.album_order - 1)

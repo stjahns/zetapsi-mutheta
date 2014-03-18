@@ -2,7 +2,8 @@
 
 %h1 Albums
 
-= link_to 'New Album', new_album_path if signed_in?
+%p
+  = link_to 'New Album', new_album_path if signed_in?
 
 .row.albums-list
   -@albums.each do |album|

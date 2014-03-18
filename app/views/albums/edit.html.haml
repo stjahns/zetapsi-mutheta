@@ -4,15 +4,21 @@
 
 %h2 Photos:
 
-%ul
 - @album.album_photos.each do |photo|
-  %li
-    = image_tag photo.image.url(:thumb)
-    %strong Caption:
-    = photo.caption
-    = link_to 'Delete', [@album, photo],
-      method: :delete,
-      data: { confirm: "Are you sure?" }
+  .row
+    .col-xs-4.col-md-2
+      = image_tag photo.image.url(:thumb), class: "edit-album-thumb"
+    .col-xs-8.col-md-10
+      = form_for [@album, photo] do |form|
+        %p
+          = form.label :caption
+          = form.text_field :caption
+        %p
+          = form.submit "Update Caption"
+      %p
+        = link_to 'Delete', [@album, photo],
+          method: :delete,
+          data: { confirm: "Are you sure?" }
 
 %h3 Add Photo:
 

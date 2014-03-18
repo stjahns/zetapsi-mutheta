@@ -2,19 +2,10 @@
 
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 
-  <!-- TODO want to show album icons in a strip below the carousel -->
-  <ol class="carousel-indicators">
-    <% @album.album_photos.each_with_index do |photo, index| %>
-      <li data-target="#carousel-example-generic" data-slide-to="<%= index %>"
-        <% if index == 0 %> class="active" <% end %>>
-      </li>
-    <% end %>
-  </ol>
-
   <div class="carousel-inner">
     <% @album.album_photos.each_with_index do |photo, index| %>
-      <div class="item <%= "active" if index == 0 %>">
-        <%= image_tag photo.image.url(:frontpage) %>
+      <div class="item <%= "active" if index == 0 %>" data-slide-number="<%= index %>">
+        <%= image_tag photo.image.url(:medium) %>
         <div class="carousel-caption">
           <p><%= photo.caption %></p>
         </div>
@@ -31,5 +22,14 @@
 
 </div>
 
+<div id="slider-thumbs">
+    <% @album.album_photos.each_with_index do |photo, index| %>
+        <a id="carousel-selector-<%= index %>" <%= 'class=selected' if index == 0 %>>
+          <%= image_tag photo.image.url(:navthumb), class: 'album_nav_thumb'%>
+        </a>
+    <% end %>
+</div>
 
-<%= link_to 'Back', albums_path %>
+<p>
+  <%= link_to 'Back', albums_path %>
+</p>

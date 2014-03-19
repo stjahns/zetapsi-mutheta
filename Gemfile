@@ -58,3 +58,5 @@ gem 'jquery-migrate-rails'
 
 # For S3 file hosting
 gem 'aws-sdk'
+
+gem 'fullcalendar-rails'

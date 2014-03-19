@@ -78,6 +78,7 @@ GEM
       railties (>= 3.0.0)
     ffi (1.9.3)
     formatador (0.2.4)
+    fullcalendar-rails (1.6.4.0)
     growl (1.0.3)
     guard (2.5.1)
       formatador (>= 0.2.4)
@@ -236,6 +237,7 @@ DEPENDENCIES
   capybara (= 2.1.0)
   childprocess
   factory_girl_rails (= 4.2.1)
+  fullcalendar-rails
   growl (= 1.0.3)
   guard-rspec (= 2.5.0)
   guard-spork (= 1.5.0)

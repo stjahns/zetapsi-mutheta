@@ -11,7 +11,6 @@ class Album < ActiveRecord::Base
     index = 0
     album_photos.each do | photo |
       photo.update_attribute(:album_order, index)
-      puts index
       index += 1
     end
   end

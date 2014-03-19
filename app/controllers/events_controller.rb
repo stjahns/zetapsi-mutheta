@@ -4,6 +4,7 @@ class EventsController < ApplicationController
 
   def index
     @events = Event.all
+    @event = Event.new
 
     respond_to do |format|
       format.html
@@ -18,7 +19,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     if @event.save
-      redirect_to @event
+      redirect_to events_path 
     else
       render 'new'
     end

@@ -1,8 +1,12 @@
-%h1 Events
+- provide(:title, 'Events')
 
-%p
-  = link_to 'New Event', new_event_path if signed_in?
 
+#calendar
+
+%h3 New Event
+= render 'form'
+
+%h3 All Events
 %ul
   - @events.each do |event|
     %li
@@ -14,5 +18,16 @@
         = link_to 'Delete', event_path(event), 
           method: :delete, data: { confirm: 'Are you sure?' }
 
-#calendar
+:javascript
+  $(document).ready(function() {
+    $('#calendar').fullCalendar({
+      events: '/events',
+      header: 
+      {
+        left: 'prev,next',
+        center: 'title',
+        right: 'agendaWeek,month'
+      }
+    });
+  });
 

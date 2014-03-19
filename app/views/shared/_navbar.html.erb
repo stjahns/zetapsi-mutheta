@@ -1,14 +1,21 @@
 <div class="navbar">
   <div class="navbar-inner">
     <ul class="nav nav-pills">
-      <li><%= link_to "Home", root_path %></li>
-      <li><%= link_to "About", "/about"  %></li>
-      <li><%= link_to "Members", members_path %></li>
-      <li><%= link_to "Events", events_path %></li>
-      <li><%= link_to "Albums", albums_path %></li>
-      <li><%= link_to "Contact", "/contact" %></li>
+      <li <%= "class=active" if params[:controller] == 'home' and params[:action] == 'index' %>>
+        <%= link_to "Home", root_path %></li>
+      <li <%= "class=active" if params[:controller] == 'home' and params[:action] == 'about' %>>
+        <%= link_to "About", "/about"  %></li>
+      <li <%= "class=active" if params[:controller] == 'members' %>>
+        <%= link_to "Members", members_path %></li>
+      <li <%= "class=active" if params[:controller] == 'events' %>>
+        <%= link_to "Events", events_path %></li>
+      <li <%= "class=active" if params[:controller] == 'albums' %>>
+        <%= link_to "Albums", albums_path %></li>
+      <li <%= "class=active" if params[:controller] == 'home' and params[:action] == 'contact' %>>
+        <%= link_to "Contact", "/contact" %></li>
       <% if signed_in? %>
-        <li><%= link_to "Pages", "/pages" %></li>
+        <li <%= "class=active" if params[:controller] == 'pages' and params[:action] == 'index' %>>
+          <%= link_to "Pages", "/pages" %></li>
       <% end %>
     </ul>
   </div>

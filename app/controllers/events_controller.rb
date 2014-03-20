@@ -56,7 +56,8 @@ class EventsController < ApplicationController
         :name,
         :description,
         :start_time,
-        :end_time
+        :end_time,
+        :has_end
       )
     end
 

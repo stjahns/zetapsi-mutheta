@@ -24,7 +24,73 @@
 
   %p 
     = form.label :end_time
-    = form.datetime_select :end_time
+    = form.check_box :has_end
+    = form.datetime_select :end_time, class: 'end-time-form-select'
 
   %p
     = form.submit
+
+:javascript
+  $(document).ready(function() {
+
+    // End time selection should be disabled if box unchecked
+
+    function setEndTimeEnabled() {
+      $("[id^='event_end_time_']").each(function(index, element) {
+        element.disabled = !$("#event_has_end").is(':checked');
+      });
+    }
+
+    $("#event_has_end").change(setEndTimeEnabled);
+    setEndTimeEnabled();
+
+    // Ensure start time never after end time
+
+    function ensureEndAfterStart() {
+      var startYear = parseInt($("#event_start_time_1i").val());
+      var startMonth = parseInt($("#event_start_time_2i").val());
+      var startDay = parseInt($("#event_start_time_3i").val());
+      var startHour = parseInt($("#event_start_time_4i").val());
+      var startMinute = parseInt($("#event_start_time_5i").val());
+
+      var endYear = parseInt($("#event_end_time_1i").val());
+      var endMonth = parseInt($("#event_end_time_2i").val());
+      var endDay = parseInt($("#event_end_time_3i").val());
+      var endHour = parseInt($("#event_end_time_4i").val());
+      var endMinute = parseInt($("#event_end_time_5i").val());
+
+      if (endYear < startYear) {
+        $("#event_end_time_1i").val(startYear);
+      }
+
+      if (endYear <= startYear 
+          && endMonth < startMonth) {
+        $("#event_end_time_2i").val(startMonth);
+      }
+
+      if (endYear <= startYear 
+          && endMonth <= startMonth 
+          && endDay < startDay) {
+        $("#event_end_time_3i").val(startDay);
+      }
+
+      if (endYear <= startYear 
+          && endMonth <= startMonth 
+          && endDay <= startDay
+          && endHour < startHour) {
+        $("#event_end_time_4i").val(startHour);
+      }
+
+      if (endYear <= startYear 
+          && endMonth <= startMonth 
+          && endDay <= startDay
+          && endHour <= startHour 
+          && endMinute < startMinute) {
+        $("#event_end_time_5i").val(startMinute);
+      }
+    }
+
+    $("[id^='event_start_time_']").change(ensureEndAfterStart);
+    $("[id^='event_end_time_']").change(ensureEndAfterStart);
+
+  });

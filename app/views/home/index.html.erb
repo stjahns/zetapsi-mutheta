@@ -43,7 +43,7 @@
         <strong>
           <%= link_to event.name, event %>
         </strong>
-        <%= event.time.strftime("%A, %B %-d %Y") %>
+        <%= event.start_time.strftime("%A, %B %-d %Y") %>
       </li>
     <% end %>
   </ul>

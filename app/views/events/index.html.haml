@@ -3,8 +3,9 @@
 
 #calendar
 
-%h3 New Event
-= render 'form'
+- if signed_in?
+  %h3 New Event
+  = render 'form'
 
 %h3 All Events
 %ul

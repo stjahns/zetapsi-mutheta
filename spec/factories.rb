@@ -15,7 +15,8 @@ FactoryGirl.define do
   factory :event do
     name        "Tea Party"
     description "Drinking Tea"
-    time        1.week.from_now
+    start_time  1.week.from_now
+    end_time  1.week.from_now + 1.hour
   end
 
   factory :album do

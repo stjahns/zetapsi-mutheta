@@ -8,7 +8,7 @@ class HomeController < ApplicationController
     @cover_album = Album.first
 
     # Get upcoming events
-    @events = Event.where('time >= ?', DateTime.now).order(:time)
+    @events = Event.where('start_time >= ?', DateTime.now).order(:start_time)
   end
 
   def about

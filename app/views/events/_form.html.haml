@@ -19,8 +19,12 @@
     = form.text_area :description
 
   %p 
-    = form.label :time
-    = form.datetime_select :time
+    = form.label :start_time
+    = form.datetime_select :start_time
+
+  %p 
+    = form.label :end_time
+    = form.datetime_select :end_time
 
   %p
     = form.submit

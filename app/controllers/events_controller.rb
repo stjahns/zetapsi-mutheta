@@ -3,7 +3,7 @@ class EventsController < ApplicationController
   before_action :check_logged_in,  except: [:index, :show]
 
   def index
-    @events = Event.all
+    @events = Event.all.order(:start_time)
     @event = Event.new
 
     respond_to do |format|

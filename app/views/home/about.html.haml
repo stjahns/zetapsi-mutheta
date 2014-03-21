@@ -1,10 +1,8 @@
 - provide(:title, 'About')
 
-%span{:id => "editable", "data-mercury" => "full"}
+%div{:id => "editable", "data-mercury" => "full"}
   = raw @content.content
 - if signed_in?
-  .row
-    .span
-    %p
-      = link_to "Edit Content", "/editor" + request.path, id: "edit_link",
-          data: { save_url: update_content_path(@content.name) }
+  %p
+    = link_to "Edit Content", "/editor" + request.path, id: "edit_link",
+        data: { save_url: update_content_path(@content.name) }

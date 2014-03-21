@@ -12,8 +12,8 @@
   - @events.each do |event|
     %li
       %strong
-        = event.name
-      = link_to 'Show', event
+        = link_to event.name, event
+      = event.start_time.strftime("%A, %B %-d %Y")
       - if signed_in?
         = link_to 'Edit', edit_event_path(event)
         = link_to 'Delete', event_path(event), 

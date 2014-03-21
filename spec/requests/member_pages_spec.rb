@@ -110,7 +110,7 @@ describe "MemberPages" do
 
     before { visit member_path(@member) }
 
-    it { should have_content("Name: #{@member.name}") }
+    it { should have_content(@member.name) }
     it { should have_title(full_title(@member.name)) }
 
   end

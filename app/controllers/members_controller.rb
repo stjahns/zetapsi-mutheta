@@ -22,8 +22,9 @@ class MembersController < ApplicationController
   end
 
   def create
+    redirect_to root_path and return if params[:member].nil?
     invitation = Invitation.find_by_email_token params[:member][:token]
-    redirect_to root_path if invitation.nil?
+    redirect_to root_path and return if invitation.nil?
 
     @member = Member.new(new_member_params)
     if @member.save

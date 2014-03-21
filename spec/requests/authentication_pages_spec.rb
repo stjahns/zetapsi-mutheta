@@ -139,7 +139,7 @@ describe "Authentication" do
 
         describe "submit to create action" do
           before { post members_path }
-          specify { expect(response).to redirect_to(login_path) }
+          specify { expect(response).to redirect_to(root_path) }
         end
 
         describe "submitting to the update action" do

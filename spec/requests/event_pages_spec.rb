@@ -22,10 +22,7 @@ describe "EventPages" do
 
   describe "event index while logged in" do
     before do
-      visit login_path
-      fill_in "Email",    with: @member.email.upcase
-      fill_in "Password", with: @member.password
-      click_button "Log in"
+      sign_in(@member)
       visit events_path
     end
 

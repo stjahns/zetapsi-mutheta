@@ -1,15 +1,11 @@
 FactoryGirl.define do
 
   factory :member do
-    name      "John Doe"
-    email     "johndoe@example.com"
-    password  "foobar123"
+    name                  "John Doe"
+    email                 "johndoe@example.com"
+    password              "foobar123"
     password_confirmation "foobar123"
-  end
-
-  factory :invitation do
-    name      "John Doe"
-    email     "johndoe@example.com"
+    confirmed_at          DateTime.now
   end
 
   factory :event do

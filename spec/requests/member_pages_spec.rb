@@ -17,10 +17,9 @@ describe "MemberPages" do
 
     it { should_not have_content('Edit') }
     it { should_not have_content('Delete') }
-    it { should_not have_content('Pending Invitations') }
-    it { should_not have_content('Invite') }
+    it { should_not have_content('Add') }
 
-    # TODO test that edit, delete, and invite are inaccessible / disabled otherwise
+    # TODO test that edit, delete, and add are inaccessible / disabled otherwise
 
   end
 
@@ -43,62 +42,7 @@ describe "MemberPages" do
 
     # TODO only if administrator?
 
-    it { should have_content('Invite') }
-
-    describe "with valid name and email" do
-
-      let(:newname) { "newmember" }
-      let(:newemail) { "newmember@abc.com" }
-
-      before do
-        fill_in "Name", with: newname
-        fill_in "Email", with: newemail
-      end
-
-      it "shoud add an invite when click invite" do
-        expect { click_button "Invite" }.to change(Invitation, :count).by(1)
-      end
-
-      describe "when click invite" do
-        before { click_button "Invite" }
-        it "should send email" do
-          ActionMailer::Base.deliveries.last.should_not be_nil
-          ActionMailer::Base.deliveries.last.to.should == [newemail]
-        end
-      end
-    end
-
-    describe "with existing email" do
-      before do
-        fill_in "Name", with: @member.name
-        fill_in "Email", with: @member.email
-      end
-
-      it "shoudn't add an invite when click invite" do
-        expect { click_button "Invite" }.not_to change(Invitation, :count)
-      end
-
-      describe "when click invite" do
-        before { click_button "Invite" }
-        it "should not send email" do
-          ActionMailer::Base.deliveries.last.should be_nil
-        end
-      end
-    end
-
-
-    describe "with no name, email" do
-      it "shoudn't add an invite when click invite" do
-        expect { click_button "Invite" }.not_to change(Invitation, :count)
-      end
-
-      describe "when click invite" do
-        before { click_button "Invite" }
-        it "should not send email" do
-          ActionMailer::Base.deliveries.last.should be_nil
-        end
-      end
-    end
+    it { should have_content('Add') }
 
     it "clicking delete should delete user" do
       expect { click_link "Delete" }.to change(Member, :count).by(-1)

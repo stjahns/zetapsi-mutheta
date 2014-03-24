@@ -4,8 +4,9 @@ class Member < ActiveRecord::Base
   #
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable,
+         :recoverable, :rememberable, :trackable, :validatable,
+         :confirmable
 
   has_attached_file :profile_photo,
     :styles=> {:medium => "300x300>", :thumb => "200x250#" },
@@ -16,4 +17,18 @@ class Member < ActiveRecord::Base
 
   validates :password,  length: { minimum: 6 },
                         if: :password
+
+  # don't require a password until member is confirmed
+  # allows admins to create and invite new members
+  def password_required?
+    super if confirmed?
+  end
+
+  def password_match?
+    self.errors[:password] << "can't be blank" if password.blank?
+    self.errors[:password_confirmation] << "can't be blank" if password_confirmation.blank?
+    self.errors[:password_confirmation] << "does not match password" if password != password_confirmation
+    password == password_confirmation && !password.blank?
+  end
+
 end

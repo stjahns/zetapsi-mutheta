@@ -12,8 +12,6 @@
     </div>
   <% end %>
 
-  <%= f.hidden_field :token, :value => @invitation.email_token unless @invitation.nil? %>
-
   <p>
     <%= f.label :name %><br>
     <%= f.text_field :name %>

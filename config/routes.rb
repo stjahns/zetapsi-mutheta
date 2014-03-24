@@ -1,9 +1,12 @@
 ZetapsiMutheta::Application.routes.draw do
 
-  devise_for :members
+  devise_for :members,
+    :controllers => {:confirmations => 'confirmations'}
+
   devise_scope :member do
     get "sign_in", :to => "devise/sessions#new"
     get "sign_out", :to => "devise/sessions#destroy"
+    patch "/confirm" => "confirmations#confirm"
   end
 
   mount Mercury::Engine => '/'
@@ -11,7 +14,6 @@ ZetapsiMutheta::Application.routes.draw do
   root "home#index"
 
   resources :members, except: [:new]
-  resources :invitations, only: [:create, :destroy]
   resources :events
 
   resources :pages, param: :name, except: [:new] do

@@ -4,30 +4,12 @@ class MembersController < ApplicationController
 
   def index
     @members = Member.all
-    @invitations = Invitation.all
-    @invitation = Invitation.new
-  end
-
-  def new
-    @invitation = Invitation.where("email_token = ?", params[:id]).first
-    if @invitation.nil?
-      redirect_to root_path
-    else
-      @member = Member.new
-      @member.name = @invitation.name
-      @member.email = @invitation.email
-      @edit_password = true
-    end
+    @new_member = Member.new
   end
 
   def create
-    redirect_to root_path and return if params[:member].nil?
-    invitation = Invitation.find_by_email_token params[:member][:token]
-    redirect_to root_path and return if invitation.nil?
-
     @member = Member.new(new_member_params)
     if @member.save
-      invitation.destroy
       redirect_to @member
     else
       render 'new'

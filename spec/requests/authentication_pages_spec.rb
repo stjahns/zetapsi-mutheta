@@ -54,7 +54,6 @@ describe "Authentication" do
       let (:member) { FactoryGirl.create(:member) }
       let (:event) { FactoryGirl.create(:event) }
       let (:album) { FactoryGirl.create(:album) }
-      let (:invitation) { FactoryGirl.create(:invitation) }
 
       describe "when attempting to visit a protected page" do
         describe "like edit member" do
@@ -115,17 +114,6 @@ describe "Authentication" do
         end
         describe "submit to destroy action" do
           before { delete album_path(album) }
-          specify { expect(response).to redirect_to(new_member_session_path) }
-        end
-      end
-
-      describe "in the Invitations controller" do
-        describe "submit to create action" do
-          before { post invitations_path }
-          specify { expect(response).to redirect_to(new_member_session_path) }
-        end
-        describe "submit to destroy action" do
-          before { delete invitation_path(invitation) }
           specify { expect(response).to redirect_to(new_member_session_path) }
         end
       end

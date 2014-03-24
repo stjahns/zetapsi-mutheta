@@ -28,43 +28,29 @@
 </div>
 
 <% if signed_in? %>
-  <h3>Invite New Members</h3>
+  <h3>Add New Member</h3>
   <div class="container form-wrapper">
-    <%= form_for @invitation, class: 'form-horizontal' do |form| %>
+
+    <%= form_for @new_member do |f| %>
       <div class="form-group">
-        <%= form.label :name, class: "col-sm-2 control-label text-right" %>
+        <%= f.label :name, class: "col-sm-2 control-label text-right" %>
         <div class="col-sm-10">
-          <%= form.text_field :name, class: "form-control"%>
+          <%= f.text_field :name, class: "form-control"%>
         </div>
       </div>
       <div class="form-group">
-        <%= form.label :email, class: "col-sm-2 control-label text-right" %>
+        <%= f.label :email, class: "col-sm-2 control-label text-right" %>
         <div class="col-sm-10">
-          <%= form.text_field :email, class: "form-control"%>
+          <%= f.text_field :email, class: "form-control"%>
         </div>
       </div>
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-          <%= form.submit "Invite", class: "btn btn-default" %>
+          <%= f.submit "Add", class: "btn btn-default" %>
         </div>
       </div>
     <% end %>
+
   </div>
 
-  <h4>Pending Invitations</h4>
-
-  <% if @invitations.count == 0 %>
-    <em>No pending invitations</em>
-  <% end %>
-
-  <% @invitations.each do |invite| %>
-    <div class="row">
-      <div class="col-sm-2 text-right"><strong><%= invite.name %></strong></div>
-      <div class="col-sm-2 text-center"><%= invite.email %></div>
-      <div class="col-sm-8">
-        <%= link_to 'Cancel', invitation_path(invite),
-          method: :delete, data: { confirm: 'Are you sure?' } %>
-      </div>
-    </div>
-  <% end %>
 <% end %>

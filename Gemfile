@@ -61,4 +61,5 @@ gem 'aws-sdk'
 
 gem 'fullcalendar-rails'
 
-gem 'devise'
+gem 'devise', '~> 3.2.4'
+gem 'formtastic'

@@ -1,7 +1,6 @@
 class MembersController < ApplicationController
 
-  before_action :check_logged_in,   except: [:show, :index, :new, :create]
-  before_action :check_correct_user,      except: [:show, :index, :new, :create]
+  before_action :authenticate_member!, except: [:show, :index]
 
   def index
     @members = Member.all

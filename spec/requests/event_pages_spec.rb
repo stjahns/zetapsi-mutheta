@@ -22,7 +22,7 @@ describe "EventPages" do
 
   describe "event index while logged in" do
     before do
-      sign_in(@member)
+      login_as(@member, :scope => :member)
       visit events_path
     end
 

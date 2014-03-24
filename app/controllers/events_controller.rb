@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
 
-  before_action :check_logged_in,  except: [:index, :show]
+  before_action :authenticate_member!, except: [:show, :index]
 
   def index
     @events = Event.all.order(:start_time)

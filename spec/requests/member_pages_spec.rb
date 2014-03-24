@@ -30,10 +30,10 @@ describe "MemberPages" do
   describe "members index while logged in" do
 
     before do
-      visit login_path
+      visit new_member_session_path
       fill_in "Email",    with: @member.email.upcase
       fill_in "Password", with: @member.password
-      click_button "Log in"
+      click_button "Sign in"
       visit members_path
     end
 

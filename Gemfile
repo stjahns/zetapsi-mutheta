@@ -60,3 +60,5 @@ gem 'jquery-migrate-rails'
 gem 'aws-sdk'
 
 gem 'fullcalendar-rails'
+
+gem 'devise'

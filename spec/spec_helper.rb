@@ -45,7 +45,11 @@ Spork.prefork do
     config.order = "random"
 
     config.include Capybara::DSL
+
+    config.include Warden::Test::Helpers
   end
+
+  Warden.test_mode!
 
 end
 

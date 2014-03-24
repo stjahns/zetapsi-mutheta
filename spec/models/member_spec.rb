@@ -4,18 +4,15 @@ describe Member do
 
   before do 
     @member = Member.new(name: "Joe Schmoe", email: "abc@xyz.com",
-                        password: "foobar", password_confirmation: "foobar")
+                        password: "foobar123", password_confirmation: "foobar123")
   end
 
   subject { @member }
 
   it { should respond_to(:name) }
   it { should respond_to(:email) }
-  it { should respond_to(:password_digest) }
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
-  it { should respond_to(:authenticate) }
-  it { should respond_to(:remember_token) }
 
   it { should be_valid }
 
@@ -30,7 +27,7 @@ describe Member do
   end
 
   describe "when email format is invalid" do
-    it "should be valid" do
+    it "should be invalid" do
       addresses = %w[user@foo,com user_at_foo.org example.user@foo.
                      foo@bar_baz.com foo@bar+baz.com]
       addresses.each do |invalid_address|
@@ -73,28 +70,4 @@ describe Member do
     it { should_not be_valid }
   end
 
-  describe "return value of authenticate method" do
-    before { @member.save }
-    let(:found_member) { Member.find_by(email: @member.email) }
-
-    describe "with valid password" do
-      it { should eq found_member.authenticate(@member.password) }
-    end
-
-    describe "with invalid password" do
-      let(:user_for_invalid_password) { found_member.authenticate("invalid") }
-      it { should_not eq user_for_invalid_password }
-      specify { expect(user_for_invalid_password).to be_false }
-    end
-
-    describe "with a password that's too short" do
-      before { @member.password = @member.password_confirmation = "a" * 5 }
-      it { should be_invalid }
-    end
-  end
-
-  describe "remember token" do
-    before { @member.save }
-    its(:remember_token) { should_not be_blank }
-  end
 end

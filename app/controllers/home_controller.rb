@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
 
-  before_action :check_logged_in,  only: [:mercury_update]
+  before_action :authenticate_member!,  only: [:mercury_update]
 
   def index
     @content = content_for("home")

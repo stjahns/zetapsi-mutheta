@@ -21,10 +21,7 @@ describe "AlbumsPages" do
 
   describe "album index while logged in" do
     before do
-      visit login_path
-      fill_in "Email",    with: @member.email.upcase
-      fill_in "Password", with: @member.password
-      click_button "Log in"
+      login_as(@member, :scope => :member)
       visit albums_path
     end
 

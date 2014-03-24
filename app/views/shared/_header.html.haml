@@ -3,11 +3,11 @@
     #header-top
       #account
         %ul
-          - if signed_in?
+          - if member_signed_in?
             %li
-              = link_to current_user.email, member_path(current_user)
+              = link_to current_member.email, member_path(current_member)
             %li
-              = link_to "Log out", logout_path, method: "delete"
+              = link_to "Sign out", destroy_member_session_path, method: "delete"
           - else
             %li
-              = link_to "Log in", login_path
+              = link_to "Sign in", new_member_session_path

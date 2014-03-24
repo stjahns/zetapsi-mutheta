@@ -61,5 +61,11 @@ gem 'aws-sdk'
 
 gem 'fullcalendar-rails'
 
+# For member authentication, confirmation, and password reset
 gem 'devise', '~> 3.2.4'
+
 gem 'formtastic'
+
+# For member roles
+gem 'cancan'
+

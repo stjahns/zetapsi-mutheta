@@ -9,7 +9,7 @@ class MembersController < ApplicationController
   end
 
   def create
-    @member = Member.new(new_member_params)
+    @member = Member.new(member_params)
     if @member.save
       redirect_to @member
     else
@@ -27,7 +27,8 @@ class MembersController < ApplicationController
 
   def update
     @member = Member.find(params[:id])
-    if @member.update_attributes(edit_member_params)
+    authorize! :assign_roles, @member if params[:member][:roles]
+    if @member.update_attributes(member_params)
       redirect_to @member
     else
       render 'edit'
@@ -42,27 +43,15 @@ class MembersController < ApplicationController
 
   private
 
-    def new_member_params
-      params.require(:member).permit(
-        :name,
-        :email,
-        :password,
-        :password_confirmation,
-        :profile_photo,
-        :position,
-        :program,
-        :about
-      )
-    end
-
-    def edit_member_params
+    def member_params
       params.require(:member).permit(
         :name,
         :email,
         :profile_photo,
         :position,
         :program,
-        :about
+        :about,
+        :roles => []
       )
     end
 

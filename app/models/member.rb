@@ -1,3 +1,5 @@
+require 'role_model'
+
 class Member < ActiveRecord::Base
 
   # Include default devise modules. Others available are:
@@ -8,6 +10,7 @@ class Member < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
 
+
   has_attached_file :profile_photo,
     :styles=> {:medium => "300x300>", :thumb => "200x250#" },
     :default_url => "/assets/default_profilpic_200x250.gif"
@@ -17,6 +20,11 @@ class Member < ActiveRecord::Base
 
   validates :password,  length: { minimum: 6 },
                         if: :password
+
+  include RoleModel
+
+  # declare valid roles -- do not change order, always append to end (due to role mask)
+  roles :admin, :basic, :guest
 
   # don't require a password until member is confirmed
   # allows admins to create and invite new members

@@ -67,5 +67,5 @@ gem 'devise', '~> 3.2.4'
 gem 'formtastic'
 
 # For member roles
-gem 'cancan'
-
+gem 'cancancan'
+gem 'role_model'

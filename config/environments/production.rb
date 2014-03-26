@@ -84,6 +84,8 @@ ZetapsiMutheta::Application.configure do
       :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
     }
   }
+
+  Paperclip::Attachment.default_options[:s3_protocol] = ""
   
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   #config.action_controller.asset_host = "//s3-us-west-2.amazonaws.com/#{ENV['S3_BUCKET_NAME']}"

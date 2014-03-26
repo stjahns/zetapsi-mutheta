@@ -1,6 +1,8 @@
 class EventsController < ApplicationController
 
   before_action :authenticate_member!, except: [:show, :index]
+  load_and_authorize_resource
+  skip_authorize_resource :only => [:show, :index]
 
   def index
     @events = Event.all.order(:start_time)

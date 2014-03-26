@@ -21,7 +21,10 @@ class HomeController < ApplicationController
 
   def mercury_update
     mercury_update_footer
+
     @content = EditableContent.find_by name: params[:name]
+    authorize! :edit, @content
+
     @content.content = params[:content][:editable][:value]
     unless @content.save
       flash.now[:error] = "Failed to save content for some reason."

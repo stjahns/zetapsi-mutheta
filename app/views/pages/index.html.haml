@@ -4,10 +4,11 @@
 - @pages.each do |page|
   %li
     = link_to page.name, page_path(page.name)
-    = link_to 'Delete', page_path(page.name), 
-      method: :delete, data: { confirm: 'Are you sure?' } if signed_in?
+    - if can? :destroy, @page
+      = link_to 'Delete', page_path(page.name), 
+        method: :delete, data: { confirm: 'Are you sure?' } if signed_in?
 
-- if signed_in?
+- if can? :create, @page
   %h4 Create New Page
   = form_for @page do |f|
     %p

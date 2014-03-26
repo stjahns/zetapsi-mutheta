@@ -24,7 +24,11 @@ class Member < ActiveRecord::Base
   include RoleModel
 
   # declare valid roles -- do not change order, always append to end (due to role mask)
-  roles :admin, :basic, :guest
+  roles :admin, :basic, :guest, :manage_albums, :manage_events, :manage_pages
+
+  before_create do
+    self.roles = [:basic]
+  end
 
   # don't require a password until member is confirmed
   # allows admins to create and invite new members

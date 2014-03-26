@@ -57,11 +57,15 @@
 
   <% if can? :assign_roles, @member %>
     <p>
-      <strong>Roles</strong><br/>
+      <strong>Account Permissions</strong>
+    </p>
+    <p>
       <% Member.valid_roles.each do |role| %>
-        <%= check_box_tag "member[roles][#{role}]", role, @member.roles.include?(role),
-          {:name => "member[roles][]"} %>
-        <%= label_tag "member_roles_#{role}", role.to_s.humanize %><br/>
+        <%= label_tag "member_roles_#{role}" do %>
+          <%= check_box_tag "member[roles][#{role}]", role, @member.roles.include?(role),
+            {:name => "member[roles][]", id:"inlineCheckbox1"} %>
+          <%= role.to_s.humanize %>
+        <% end %>
       <% end %>
       <%= hidden_field_tag "member[roles][]", "" %>
     </p>

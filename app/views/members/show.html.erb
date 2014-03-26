@@ -32,5 +32,9 @@
 <div style="clear: both"></div>
 
 <p>
+  <% if can? :edit, @member %>
+    <%= link_to 'Edit', edit_member_path(@member) %>
+    |
+  <% end %>
   <%= link_to 'Back', members_path %>
 </p>

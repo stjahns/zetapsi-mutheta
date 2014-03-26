@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
 
     def mercury_update_footer
       @footer_content = content_for "footer_content"
+      authorize! :edit, @footer_content
       @footer_content.content = params[:content][:footer_content][:value]
       @footer_content.save
     end

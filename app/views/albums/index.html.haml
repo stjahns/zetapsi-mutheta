@@ -2,8 +2,9 @@
 
 %h1 Albums
 
-%p
-  = link_to 'New Album', new_album_path if signed_in?
+- if can? :create, Album
+  %p
+    = link_to 'New Album', new_album_path
 
 .row.albums-list
   -@albums.each do |album|
@@ -16,6 +17,8 @@
               = album.title
             - if signed_in?
               %p
-                = link_to 'Edit', edit_album_path(album)
-                = link_to 'Delete', album_path(album), 
-                  method: :delete, data: { confirm: 'Are you sure?' }
+                -if can? :edit, album
+                  = link_to 'Edit', edit_album_path(album)
+                -if can? :delete, album
+                  = link_to 'Delete', album_path(album), 
+                    method: :delete, data: { confirm: 'Are you sure?' }

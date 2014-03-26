@@ -13,8 +13,10 @@
             <h4><%= member.name %></h4>
             <p><em><%= member.position %></em></p>
             <p>
-            <% if signed_in? %>
+            <% if can? :edit, member %>
               <%= link_to 'Edit', edit_member_path(member) %>
+            <% end %>
+            <% if can? :destroy, member %>
               <%= link_to 'Delete', member_path(member),
                 method: :delete, data: { confirm: 'Are you sure?' } %>
             <% end %>
@@ -27,7 +29,7 @@
   <% end %>
 </div>
 
-<% if signed_in? %>
+<% if can? :create, @new_member %>
   <h3>Add New Member</h3>
   <div class="container form-wrapper">
 

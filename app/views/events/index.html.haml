@@ -3,7 +3,7 @@
 
 #calendar
 
-- if signed_in?
+- if can? :create, @event
   %h3 New Event
   = render 'form'
 
@@ -14,8 +14,9 @@
       %strong
         = link_to event.name, event
       = event.start_time.strftime("%A, %B %-d %Y")
-      - if signed_in?
+      - if can? :edit, event 
         = link_to 'Edit', edit_event_path(event)
+      - if can? :destroy, event
         = link_to 'Delete', event_path(event), 
           method: :delete, data: { confirm: 'Are you sure?' }
 

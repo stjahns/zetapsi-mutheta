@@ -86,6 +86,6 @@ ZetapsiMutheta::Application.configure do
   }
   
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.action_controller.asset_host = "//s3-us-west-2.amazonaws.com/#{ENV['S3_BUCKET_NAME']}"
+  #config.action_controller.asset_host = "//s3-us-west-2.amazonaws.com/#{ENV['S3_BUCKET_NAME']}"
 
 end

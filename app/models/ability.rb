@@ -5,14 +5,12 @@ class Ability
     # Define abilities for the passed in user here.
 
     member ||= Member.new # guest (not logged in as a member)
-    # TODO member model should always *at least* have :guest role
-
-    # only admins can assign roles
-    can :assign_roles, Member if member.has_role? :admin
+    member.roles.add :guest
 
     if member.has_role? :admin
 
       # full admins can do anything
+      # including assigning roles
       can :manage, :all
 
     end
@@ -42,8 +40,10 @@ class Ability
 
     if member.has_role? :guest
 
-      # Guests can only read stuff
-      can :read, Member
+      # Guests can only view active members
+      can :read, Member do |m|
+        not m.elder?
+      end
 
     end
   end

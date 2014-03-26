@@ -55,6 +55,13 @@
     <%= f.text_area :about %>
   </p>
 
+  <p>
+    <%= f.label :elder do %>
+      <%= f.check_box :elder %>
+      Elder
+    <% end %>
+  </p>
+
   <% if can? :assign_roles, @member %>
     <p>
       <strong>Account Permissions</strong>

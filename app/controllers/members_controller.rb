@@ -2,7 +2,7 @@ class MembersController < ApplicationController
 
   before_action :authenticate_member!, except: [:show, :index]
   load_and_authorize_resource
-  skip_authorize_resource :only => [:show, :index]
+  skip_authorize_resource :only => [:index]
 
   def index
     @members = Member.all
@@ -48,6 +48,7 @@ class MembersController < ApplicationController
       params.require(:member).permit(
         :name,
         :email,
+        :elder,
         :profile_photo,
         :position,
         :program,

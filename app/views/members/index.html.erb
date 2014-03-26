@@ -2,32 +2,14 @@
 
 <h1>Active Members</h1>
 
-<div class="row members-list">
-  <% @members.each do |member| %>
-    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-      <%= link_to member, title: member.name do %>
+<%= render :partial => "memberslist",
+  :locals => {:members => @members.find_all{ |m| not m.elder? }} %>
 
-        <div class="thumbnail member_thumb">
-          <%= image_tag member.profile_photo.url(:thumb) %>
-          <div class='caption'>
-            <h4><%= member.name %></h4>
-            <p><em><%= member.position %></em></p>
-            <p>
-            <% if can? :edit, member %>
-              <%= link_to 'Edit', edit_member_path(member) %>
-            <% end %>
-            <% if can? :destroy, member %>
-              <%= link_to 'Delete', member_path(member),
-                method: :delete, data: { confirm: 'Are you sure?' } %>
-            <% end %>
-            </p>
-          </div>
-        </div>
-
-      <% end %>
-    </div>
-  <% end %>
-</div>
+<% if signed_in? %>
+  <h1>Elder Members</h1>
+  <%= render :partial => "memberslist",
+    :locals => {:members => @members.find_all{ |m| m.elder? }} %>
+<% end %>
 
 <% if can? :create, @new_member %>
   <h3>Add New Member</h3>

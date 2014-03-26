@@ -54,9 +54,6 @@ ZetapsiMutheta::Application.configure do
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
-  # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  # config.action_controller.asset_host = "http://assets.example.com"
-
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
   config.assets.precompile += %w(jquery-1.7.js)
@@ -87,5 +84,8 @@ ZetapsiMutheta::Application.configure do
       :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
     }
   }
+  
+  # Enable serving of images, stylesheets, and JavaScripts from an asset server.
+  config.action_controller.asset_host = "//s3-us-west-2.amazonaws.com/#{ENV['S3_BUCKET_NAME']}"
 
 end

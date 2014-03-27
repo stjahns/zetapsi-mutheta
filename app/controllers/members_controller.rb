@@ -20,6 +20,7 @@ class MembersController < ApplicationController
 
   def show
     @member = Member.find(params[:id])
+    @transaction = Transaction.new
   end
 
   def edit

@@ -1,0 +1,10 @@
+%h1 Edit Transaction
+
+= render 'form'
+
+%p
+  = link_to 'Cancel Transaction', [@member, @transaction],
+      method: :delete,
+      data: { confirm: "Are you sure?" }
+  |
+  = link_to 'Back', member_path(@member)

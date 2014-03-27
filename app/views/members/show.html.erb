@@ -31,6 +31,50 @@
 
 <div style="clear: both"></div>
 
+<h3>Account</h3>
+<p>
+  <strong>Balance:</strong>
+  <%= number_to_currency(@member.account_balance) %>
+</p>
+
+<p>
+  <strong>Transactions:</strong>
+</p>
+
+<!-- TODO
+  - pick date range / paginate
+  - running balance
+  - table format when no transaction history
+-->
+
+<p>
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Type</th>
+    <th>Transaction Id</th>
+    <th>Description</th>
+    <th>Debit</th>
+    <th>Credit</th>
+  </tr>
+  <% @member.transactions.each do |t| %>
+    <tr>
+      <td><%= t.created_at.to_date %></td>
+      <td><%= t.type %></td>
+      <td><%= link_to t.id, member_transaction_path(@member, t) %>
+      <td><%= t.description %></td>
+      <td><%= t.debit_amount %></td>
+      <td><%= t.credit_amount %></td>
+    </tr>
+  <% end %>
+</table>
+</p>
+
+<p>
+  <strong>New Transaction:</strong>
+  <%= render :partial => "/transactions/form" %>
+</p>
+
 <p>
   <% if can? :edit, @member %>
     <%= link_to 'Edit', edit_member_path(@member) %>

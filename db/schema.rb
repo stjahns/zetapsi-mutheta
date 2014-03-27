@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140326063049) do
+ActiveRecord::Schema.define(version: 20140326223428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,5 +93,14 @@ ActiveRecord::Schema.define(version: 20140326063049) do
   end
 
   add_index "pages", ["name"], name: "index_pages_on_name", using: :btree
+
+  create_table "transactions", force: true do |t|
+    t.integer  "member_id"
+    t.string   "type"
+    t.string   "description"
+    t.decimal  "amount",      precision: 10, scale: 2, default: 0.0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

@@ -1,0 +1,14 @@
+= form_for [@member, @transaction], :as => :transaction do |f|
+
+  = f.label :type
+  = select :transaction, :type, 
+      Transaction.descendants.collect{|t|[t.name, t.name]}
+
+  = f.label :description
+  = f.text_field :description
+
+  = f.label :amount
+  = f.text_field :amount
+
+  %p
+    = f.submit

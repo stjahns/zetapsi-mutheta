@@ -16,6 +16,8 @@ class Member < ActiveRecord::Base
     :default_url => "/assets/default_profilpic_200x250.gif"
   validates_attachment_content_type :profile_photo, :content_type => /image/
 
+  has_many :transactions
+
   validates :name, presence: true
 
   validates :password,  length: { minimum: 6 },
@@ -41,6 +43,14 @@ class Member < ActiveRecord::Base
     self.errors[:password_confirmation] << "can't be blank" if password_confirmation.blank?
     self.errors[:password_confirmation] << "does not match password" if password != password_confirmation
     password == password_confirmation && !password.blank?
+  end
+
+  def account_balance
+    balance = 0
+    self.transactions.each do |t|
+      balance += t.balance_amount
+    end
+    return balance
   end
 
 end

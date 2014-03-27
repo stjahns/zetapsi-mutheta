@@ -13,7 +13,15 @@ ZetapsiMutheta::Application.routes.draw do
 
   root "home#index"
 
-  resources :members, except: [:new]
+  resources :members, except: [:new] do
+    resources :transactions
+    resources :reimbursements, :controller => :transactions
+    resources :reimbursement_requests, :controller => :transactions
+    resources :charges, :controller => :transactions
+    resources :payments, :controller => :transactions
+  end
+
+
   resources :events
 
   resources :pages, param: :name, except: [:new] do

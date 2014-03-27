@@ -1,0 +1,31 @@
+%h1 
+  = @transaction.type
+
+%p
+  %em
+    = @member.name
+
+%p
+  %strong Date:
+  = @transaction.created_at.to_date
+
+%p
+  %strong Transaction Id:
+  = @transaction.id
+
+%p
+  %strong Description:
+  = @transaction.description
+
+%p
+  %strong Amount:
+  = number_to_currency @transaction.amount
+
+%p
+  = link_to 'Edit', edit_member_transaction_path(@member, @transaction)
+  |
+  = link_to 'Cancel Transaction', [@member, @transaction],
+      method: :delete,
+      data: { confirm: "Are you sure?" }
+  |
+  = link_to 'Back', member_path(@member)

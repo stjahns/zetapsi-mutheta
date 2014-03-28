@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140326223428) do
+ActiveRecord::Schema.define(version: 20140327022832) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,9 +98,13 @@ ActiveRecord::Schema.define(version: 20140326223428) do
     t.integer  "member_id"
     t.string   "type"
     t.string   "description"
-    t.decimal  "amount",      precision: 10, scale: 2, default: 0.0
+    t.decimal  "amount",               precision: 10, scale: 2, default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "receipt_file_name"
+    t.string   "receipt_content_type"
+    t.integer  "receipt_file_size"
+    t.datetime "receipt_updated_at"
   end
 
 end

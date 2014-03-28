@@ -21,6 +21,12 @@
   %strong Amount:
   = number_to_currency @transaction.amount
 
+- if @transaction.receipt.file?
+  %p
+    %strong Reciept:
+    %br
+    = image_tag @transaction.receipt.url(:preview)
+
 %p
   = link_to 'Edit', edit_member_transaction_path(@member, @transaction)
   |

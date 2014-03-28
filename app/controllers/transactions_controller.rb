@@ -40,7 +40,8 @@ class TransactionsController < ApplicationController
       params.require(:transaction).permit(
         :type,
         :description,
-        :amount
+        :amount,
+        :receipt
       )
     end
 

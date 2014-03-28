@@ -32,15 +32,6 @@
 <div style="clear: both"></div>
 
 <h3>Account</h3>
-<p>
-  <strong>Balance:</strong>
-  <%= number_to_currency(@member.account_balance) %>
-</p>
-
-<p>
-  <strong>Transactions:</strong>
-</p>
-
 <!-- TODO
   - pick date range / paginate
   - running balance
@@ -48,30 +39,40 @@
 -->
 
 <p>
-<table>
+<table class="table">
   <tr>
-    <th>Date</th>
-    <th>Type</th>
-    <th>Transaction Id</th>
-    <th>Description</th>
-    <th>Debit</th>
-    <th>Credit</th>
+    <th class="text-center">Date</th>
+    <th class="text-center">Type</th>
+    <th class="text-center">Transaction Id</th>
+    <th class="text-center">Description</th>
+    <th class="text-center">Debit</th>
+    <th class="text-center">Credit</th>
+    <th class="text-center">Balance Due</th>
   </tr>
+  <% running_balance = 0 # TODO get incoming balance if displaying date range %>
   <% @member.transactions.each do |t| %>
+    <% running_balance += t.balance_amount %>
     <tr>
-      <td><%= t.created_at.to_date %></td>
-      <td><%= t.type %></td>
-      <td><%= link_to t.id, member_transaction_path(@member, t) %>
-      <td><%= t.description %></td>
-      <td><%= t.debit_amount %></td>
-      <td><%= t.credit_amount %></td>
+      <td class="text-center"><%= t.created_at.to_date %></td>
+      <td class="text-center"><%= t.type.titleize %></td>
+      <td class="text-center"><%= link_to t.id, member_transaction_path(@member, t) %>
+      <td class="text-center"><%= t.description %></td>
+      <td class="text-right"><%= number_to_currency t.debit_amount %></td>
+      <td class="text-right"><%= number_to_currency t.credit_amount %></td>
+      <td class="text-right"><%= number_to_currency running_balance %></td>
     </tr>
   <% end %>
 </table>
 </p>
 
 <p>
-  <strong>New Transaction:</strong>
+  <strong>Balance Due:</strong>
+  <%= number_to_currency(@member.account_balance) %>
+</p>
+
+
+<h4> New Transaction </h4>
+<p>
   <%= render :partial => "/transactions/form" %>
 </p>
 

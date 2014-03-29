@@ -20,4 +20,24 @@ FactoryGirl.define do
     title        "Tea Party"
   end
 
+  factory :reimbursement_request do
+    description   "request"
+    amount        100
+    receipt       { File.new(Rails.root.join('app', 'assets', 'images', 'FratCoverPic.jpg')) }
+  end
+
+  factory :reimbursement do
+    description   "reimbursement"
+    amount        100
+  end
+
+  factory :charge do
+    description   "charge"
+    amount        100
+  end
+
+  factory :payment do
+    description   "payment"
+    amount        100
+  end
 end

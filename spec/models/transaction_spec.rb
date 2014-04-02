@@ -8,6 +8,23 @@ shared_examples "a transaction" do |transaction|
     it { should respond_to(:receipt) }
     it { should respond_to(:created_at) }
     it { should_not respond_to(:lassie) }
+
+    it { should be_valid }
+
+    describe "invalid when description blank" do
+      before { subject.send(:description=, " ") }
+      it { should_not be_valid }
+    end
+
+    describe "invalid when amount 0" do
+      before { subject.send(:amount=, 0) }
+      it { should_not be_valid }
+    end
+
+    describe "invalid when amount negative" do
+      before { subject.send(:amount=, -1) }
+      it { should_not be_valid }
+    end
   end 
 end
 
@@ -44,6 +61,10 @@ describe Reimbursement do
     @member = FactoryGirl.create(:member)
   end
 
+  subject { @reimbursement }
+
+  it { should be_valid }
+
   it_should_behave_like "a transaction", @reimbursement
 
   describe "when add to member transactions" do
@@ -62,6 +83,8 @@ describe Charge do
     @member = FactoryGirl.create(:member)
   end
 
+  subject { @charge }
+
   it_should_behave_like "a transaction", @charge
 
   describe "when add to member transactions" do
@@ -79,6 +102,8 @@ describe Payment do
     @payment = FactoryGirl.create(:payment)
     @member = FactoryGirl.create(:member)
   end
+
+  subject { @payment }
 
   it_should_behave_like "a transaction", @payment
 

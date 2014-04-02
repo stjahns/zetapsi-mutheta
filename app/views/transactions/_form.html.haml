@@ -2,6 +2,17 @@
   :as => :transaction,
   :html => { :multipart => true } do |f|
 
+  - if @transaction.errors.any?
+    #error_explanation
+      %em
+        = pluralize(@transaction.errors.count, "error")
+        prohibited this transaction from being saved:
+      %ul
+        -@transaction.errors.full_messages.each do |msg|
+          %li
+            = msg
+
+
   = f.label :type
   = select :transaction, :type, 
       Transaction::TYPES.collect{|t|[t.titleize, t]}

@@ -3,8 +3,11 @@ class TransactionsController < ApplicationController
   def create
     @member = Member.find(params[:member_id])
     @transaction = @member.transactions.create(transaction_params)
-    @transaction.save
-    redirect_to @member
+    if @transaction.save
+      redirect_to @member
+    else
+      render 'edit'
+    end
   end
 
   def show
@@ -20,12 +23,11 @@ class TransactionsController < ApplicationController
   def update
     @member = Member.find(params[:member_id])
     @transaction = @member.transactions.find(params[:id])
-    @transaction.update(transaction_params)
-    puts "WTF!"
-    puts params
-    puts params[:transaction][:description] 
-    puts @transaction.description
-    redirect_to @member
+    if @transaction.update(transaction_params)
+      redirect_to @member
+    else
+      render 'edit'
+    end
   end
 
   def destroy

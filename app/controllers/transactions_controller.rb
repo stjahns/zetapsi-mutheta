@@ -7,6 +7,7 @@ class TransactionsController < ApplicationController
     @member = Member.find(params[:member_id])
     @transaction = @member.transactions.create(transaction_params)
     if @transaction.save
+      AccountMailer.transaction_email(@transaction).deliver
       redirect_to @member
     else
       render 'edit'

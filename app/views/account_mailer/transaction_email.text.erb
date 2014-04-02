@@ -1,0 +1,8 @@
+A new transaction has been added to the account for <%= @member.name %>.
+
+Transaction Type: <%= @transaction.type.titleize %>
+Date Created: <%= @transaction.created_at.to_date %>
+Description: <%= @transaction.description %>
+Amount: <%= number_to_currency @transaction.amount %>
+
+Current Balance Due: <%= number_to_currency @member.account_balance %>

@@ -36,7 +36,6 @@ describe "Authentication" do
         click_button "Sign in"
       end
 
-      it { should have_title(member.name) }
       it { should have_link(member.email, href: member_path(member)) }
       it { should have_link('Sign out',    href: destroy_member_session_path) }
       it { should_not have_link('Sign in',    href: new_member_session_path) }
@@ -52,6 +51,7 @@ describe "Authentication" do
 
     describe "for non-signed-in users" do
       let (:member) { FactoryGirl.create(:member) }
+      let (:admin) { FactoryGirl.create(:admin) }
       let (:event) { FactoryGirl.create(:event) }
       let (:album) { FactoryGirl.create(:album) }
 
@@ -70,9 +70,9 @@ describe "Authentication" do
         describe "like new event" do
           before do
             visit new_event_path
-            valid_sign_in(member)
+            valid_sign_in(admin)
           end
-          describe "after signing in" do
+          describe "after signing in as admin" do
             it "should render the desired protected page" do
               expect(page).to have_title(full_title('New event'))
             end
@@ -127,7 +127,7 @@ describe "Authentication" do
 
         describe "submit to create action" do
           before { post members_path }
-          specify { expect(response).to redirect_to(root_path) }
+          specify { expect(response).to redirect_to(new_member_session_path) }
         end
 
         describe "submitting to the update action" do

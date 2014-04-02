@@ -29,10 +29,7 @@ describe "MemberPages" do
   describe "members index while logged in" do
 
     before do
-      visit new_member_session_path
-      fill_in "Email",    with: @member.email.upcase
-      fill_in "Password", with: @member.password
-      click_button "Sign in"
+      login_as(@member, :scope => :member)
       visit members_path
     end
 
@@ -40,15 +37,34 @@ describe "MemberPages" do
     it { should have_content(@member.name) }
     it { should have_title(full_title('Members')) }
 
-    # TODO only if administrator?
+    # basic users shouldn't be able to add / remove members
+    it { should_not have_content('Add') }
+  end
+
+  #
+  # Test member pages for logged in members
+  #
+  describe "members index while logged in as admin" do
+
+    before do
+      @admin = FactoryGirl.create(:admin)
+      visit new_member_session_path
+      login_as(@admin, :scope => :member)
+      visit members_path
+    end
+
+    it { should have_content('Members') }
+    it { should have_content(@member.name) }
+    it { should have_title(full_title('Members')) }
 
     it { should have_content('Add') }
 
     it "clicking delete should delete user" do
-      expect { click_link "Delete" }.to change(Member, :count).by(-1)
+      expect { first('.member_thumb').click_link "Delete" }.to change(Member, :count).by(-1)
     end
 
   end
+
 
   describe "show member page" do
 
@@ -62,7 +78,7 @@ describe "MemberPages" do
   describe "edit member page" do
 
     before do 
-      sign_in(@member)
+      login_as(@member, :scope => :member)
       visit edit_member_path(@member)
     end
 

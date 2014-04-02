@@ -28,8 +28,7 @@ describe Member do
 
   describe "when email format is invalid" do
     it "should be invalid" do
-      addresses = %w[user@foo,com user_at_foo.org example.user@foo.
-                     foo@bar_baz.com foo@bar+baz.com]
+      addresses = %w[user@foo,com user_at_foo.org example.user@foo. foo@bar_bazcom]
       addresses.each do |invalid_address|
         @member.email = invalid_address
         expect(@member).not_to be_valid
@@ -55,19 +54,6 @@ describe Member do
     end
 
     it {should_not be_valid }
-  end
-
-  describe "when password is not present" do
-    before do
-      @member = Member.new(name: "Joe Schmoe", email: "abc@xyz.com",
-                        password: " ", password_confirmation: " ")
-    end
-    it { should_not be_valid }
-  end
-
-  describe "when password doesn't match confirmation" do
-    before { @member.password_confirmation = "mismatch" }
-    it { should_not be_valid }
   end
 
 end

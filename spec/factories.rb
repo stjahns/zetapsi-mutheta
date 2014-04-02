@@ -1,11 +1,27 @@
 FactoryGirl.define do
 
+  sequence(:name) { |n| "member#{n}" }
+  sequence(:email) { |n| "member#{n}@example.com" }
+
   factory :member do
-    name                  "John Doe"
-    email                 "johndoe@example.com"
+    name                  
+    email
     password              "foobar123"
     password_confirmation "foobar123"
     confirmed_at          DateTime.now
+    roles                 [:basic]
+
+    factory :event_manager do
+      roles               [:basic, :manage_events]
+    end
+
+    factory :album_manager do
+      roles               [:basic, :manage_albums]
+    end
+
+    factory :admin do
+      roles               [:admin]
+    end
   end
 
   factory :event do

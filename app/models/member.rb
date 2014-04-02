@@ -23,13 +23,15 @@ class Member < ActiveRecord::Base
   validates :password,  length: { minimum: 6 },
                         if: :password
 
+  validates_format_of :email, :with => Devise.email_regexp                          
+
   include RoleModel
 
   # declare valid roles -- do not change order, always append to end (due to role mask)
   roles :admin, :basic, :guest, :manage_albums, :manage_events, :manage_pages
 
   before_create do
-    self.roles = [:basic]
+    self.roles ||= [:basic]
   end
 
   # don't require a password until member is confirmed

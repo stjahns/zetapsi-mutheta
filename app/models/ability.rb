@@ -23,6 +23,15 @@ class Ability
         m.email == member.email
       end
 
+      # Basic members can only view their own transactions
+      can [:read], Transaction,
+        :member_id => member.id
+
+      # Basic members can create reimbursement requests for themselves
+      can [:create, :edit, :update], Transaction, 
+        :member_id => member.id, 
+        :type => "ReimbursementRequest"
+
     end
 
     if member.has_role? :manage_albums

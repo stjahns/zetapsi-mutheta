@@ -28,7 +28,13 @@ class Member < ActiveRecord::Base
   include RoleModel
 
   # declare valid roles -- do not change order, always append to end (due to role mask)
-  roles :admin, :basic, :guest, :manage_albums, :manage_events, :manage_pages
+  roles :admin, 
+    :basic, 
+    :guest,
+    :manage_albums, 
+    :manage_events, 
+    :manage_pages, 
+    :manage_transactions
 
   before_create do
     self.roles ||= [:basic]

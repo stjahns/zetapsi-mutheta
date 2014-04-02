@@ -37,22 +37,26 @@ FactoryGirl.define do
   end
 
   factory :reimbursement_request do
+    type          "ReimbursementRequest"
     description   "request"
     amount        100
-    receipt       { File.new(Rails.root.join('app', 'assets', 'images', 'FratCoverPic.jpg')) }
+    receipt       Rack::Test::UploadedFile.new(Rails.root.join('app', 'assets', 'images', 'FratCoverPic.jpg'), 'image/jpg')
   end
 
   factory :reimbursement do
+    type          "Reimbursement"
     description   "reimbursement"
     amount        100
   end
 
   factory :charge do
+    type          "Charge"
     description   "charge"
     amount        100
   end
 
   factory :payment do
+    type          "Payment"
     description   "payment"
     amount        100
   end

@@ -1,5 +1,8 @@
 class TransactionsController < ApplicationController
 
+  before_action :authenticate_member!
+  load_and_authorize_resource
+
   def create
     @member = Member.find(params[:member_id])
     @transaction = @member.transactions.create(transaction_params)
@@ -8,6 +11,12 @@ class TransactionsController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def index
+    # no specfic template for member transactions, just redirect to member page
+    @member = Member.find(params[:member_id])
+    redirect_to @member
   end
 
   def show

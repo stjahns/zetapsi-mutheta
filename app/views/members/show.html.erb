@@ -31,50 +31,55 @@
 
 <div style="clear: both"></div>
 
-<h3>Account</h3>
-<!-- TODO
-  - pick date range / paginate
-  - running balance
-  - table format when no transaction history
--->
+<% if @member.transactions.any? { |t| can? :read, t } %>
 
-<p>
-<table class="table">
-  <tr>
-    <th class="text-center">Date</th>
-    <th class="text-center">Type</th>
-    <th class="text-center">Transaction Id</th>
-    <th class="text-center">Description</th>
-    <th class="text-center">Debit</th>
-    <th class="text-center">Credit</th>
-    <th class="text-center">Balance Due</th>
-  </tr>
-  <% running_balance = 0 # TODO get incoming balance if displaying date range %>
-  <% @member.transactions.each do |t| %>
-    <% running_balance += t.balance_amount %>
+  <h3>Account</h3>
+  <!-- TODO
+    - pick date range / paginate
+    - table format when no transaction history
+  -->
+
+  <p>
+  <table class="table">
     <tr>
-      <td class="text-center"><%= t.created_at.to_date %></td>
-      <td class="text-center"><%= t.type.titleize %></td>
-      <td class="text-center"><%= link_to t.id, member_transaction_path(@member, t) %>
-      <td class="text-center"><%= t.description %></td>
-      <td class="text-right"><%= number_to_currency t.debit_amount %></td>
-      <td class="text-right"><%= number_to_currency t.credit_amount %></td>
-      <td class="text-right"><%= number_to_currency running_balance %></td>
+      <th class="text-center">Date</th>
+      <th class="text-center">Type</th>
+      <th class="text-center">Transaction Id</th>
+      <th class="text-center">Description</th>
+      <th class="text-center">Debit</th>
+      <th class="text-center">Credit</th>
+      <th class="text-center">Balance Due</th>
     </tr>
-  <% end %>
-</table>
-</p>
+    <% running_balance = 0 # TODO get incoming balance if displaying date range %>
+    <% @member.transactions.each do |t| %>
+      <% if can? :read, t %>
+        <% running_balance += t.balance_amount %>
+        <tr>
+          <td class="text-center"><%= t.created_at.to_date %></td>
+          <td class="text-center"><%= t.type.titleize %></td>
+          <td class="text-center"><%= link_to t.id, member_transaction_path(@member, t) %>
+          <td class="text-center"><%= t.description %></td>
+          <td class="text-right"><%= number_to_currency t.debit_amount %></td>
+          <td class="text-right"><%= number_to_currency t.credit_amount %></td>
+          <td class="text-right"><%= number_to_currency running_balance %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
+  </p>
 
-<p>
-  <strong>Balance Due:</strong>
-  <%= number_to_currency(@member.account_balance) %>
-</p>
+  <p>
+    <strong>Balance Due:</strong>
+    <%= number_to_currency(@member.account_balance) %>
+  </p>
+<% end %>
 
-
-<h4> New Transaction </h4>
-<p>
-  <%= render :partial => "/transactions/form" %>
-</p>
+<% if can? :create, @member.transactions.build(type: "ReimbursementRequest") %>
+    <h4> New Transaction </h4>
+    <p>
+      <%= render :partial => "/transactions/form" %>
+    </p>
+<% end %>
 
 <p>
   <% if can? :edit, @member %>

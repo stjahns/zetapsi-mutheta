@@ -28,7 +28,7 @@ class Ability
         :member_id => member.id
 
       # Basic members can create reimbursement requests for themselves
-      can [:create, :edit, :update], Transaction, 
+      can [:create, :edit, :update, :delete], Transaction, 
         :member_id => member.id, 
         :type => "ReimbursementRequest"
 
@@ -45,6 +45,10 @@ class Ability
     if member.has_role? :manage_pages
       can :manage, Page
       can :edit, EditableContent
+    end
+
+    if member.has_role? :manage_transactions
+      can :manage, Transaction
     end
 
     if member.has_role? :guest

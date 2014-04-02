@@ -14,8 +14,7 @@
 
 
   = f.label :type
-  = select :transaction, :type, 
-      Transaction::TYPES.collect{|t|[t.titleize, t]}
+  = select :transaction, :type, permissible_transactions(@member).collect {|t| [t.titleize, t]}
 
   = f.label :description
   = f.text_field :description

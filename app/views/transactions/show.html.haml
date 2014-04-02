@@ -28,10 +28,12 @@
     = image_tag @transaction.receipt.url(:preview)
 
 %p
-  = link_to 'Edit', edit_member_transaction_path(@member, @transaction)
-  |
-  = link_to 'Cancel Transaction', [@member, @transaction],
-      method: :delete,
-      data: { confirm: "Are you sure?" }
-  |
+  - if can? :edit, @transaction
+    = link_to 'Edit', edit_member_transaction_path(@member, @transaction)
+    |
+  - if can? :delete, @transaction
+    = link_to 'Cancel Transaction', [@member, @transaction],
+        method: :delete,
+        data: { confirm: "Are you sure?" }
+    |
   = link_to 'Back', member_path(@member)

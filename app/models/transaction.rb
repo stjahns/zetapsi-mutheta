@@ -3,7 +3,7 @@ class Transaction < ActiveRecord::Base
 
   has_attached_file :receipt,
     :styles => { :preview => "300x400>" },
-    :s3_permissions => :privaate
+    :s3_permissions => :private
 
   validates_attachment_content_type :receipt, :content_type => /image/
 

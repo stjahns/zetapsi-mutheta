@@ -24,7 +24,7 @@
 
   = f.label :receipt
   - if @transaction.receipt.file?
-    = image_tag @transaction.receipt.url(:preview)
+    = image_tag @transaction.receipt.expiring_url(10)
   = f.file_field :receipt
 
   %p

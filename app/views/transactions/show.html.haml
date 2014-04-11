@@ -25,7 +25,7 @@
   %p
     %strong Reciept:
     %br
-    = image_tag @transaction.receipt.url(:preview)
+    = image_tag @transaction.receipt.expiring_url(10)
 
 %p
   - if can? :edit, @transaction

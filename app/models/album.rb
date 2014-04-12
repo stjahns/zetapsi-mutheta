@@ -1,6 +1,18 @@
 class Album < ActiveRecord::Base
   has_many :album_photos
 
+  after_save :unique_frontpage_album 
+
+  def unique_frontpage_album
+    if frontpage?
+      frontpage_albums = Album.where('frontpage = true AND id != ?', self.id)
+      frontpage_albums.each do |album|
+        album.frontpage = false
+        album.save
+      end
+    end
+  end
+
   def cover_image
     album_photos.count > 0 ?
       album_photos.first.image.url(:thumb)

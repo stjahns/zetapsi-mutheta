@@ -8,6 +8,9 @@ class EventsController < ApplicationController
     @events = Event.all.order(:start_time)
     @event = Event.new
 
+    @upcoming_events = Event.where('start_time >= ?', DateTime.now).order(:start_time)
+    @past_events = Event.where('start_time < ?', DateTime.now).order(:start_time)
+
     respond_to do |format|
       format.html
       format.json

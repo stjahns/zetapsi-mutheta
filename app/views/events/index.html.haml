@@ -7,9 +7,22 @@
   %h3 New Event
   = render 'form'
 
-%h3 All Events
+%h3 Upcoming Events
 %ul
-  - @events.each do |event|
+  - @upcoming_events.each do |event|
+    %li
+      %strong
+        = link_to event.name, event
+      = event.start_time.strftime("%A, %B %-d %Y")
+      - if can? :edit, event 
+        = link_to 'Edit', edit_event_path(event)
+      - if can? :destroy, event
+        = link_to 'Delete', event_path(event), 
+          method: :delete, data: { confirm: 'Are you sure?' }
+
+%h3 Past Events
+%ul
+  - @past_events.reverse_each do |event|
     %li
       %strong
         = link_to event.name, event
